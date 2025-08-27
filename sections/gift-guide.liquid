@@ -8,6 +8,18 @@
   </div>
 </section>
 
+<style>
+main > .shopify-section:has(> .hero-section) { margin-top: 0 !important; }
+main > .shopify-section:has(> .hero-section) .spacing-style { --section-top-offset: 0px; }
+
+/* Hero styles */
+.hero-section{background:#fff;position:relative;overflow:hidden;min-height:60vh}
+.hero-content{display:flex;align-items:center;min-height:60vh;width:100%}
+.hero-main-image{width:100%;height:100%;display:block;object-fit:cover}
+
+@media (max-width: 786px){ .hero-mainimage{display:none} }
+</style>
+
 {% schema %}
 {
   "name": "Gift Guide Hero",
