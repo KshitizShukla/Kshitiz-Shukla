@@ -1,37 +1,32 @@
-<section id="gift-hero-{{ section.id }}" class="gift-guide-hero">
-  {% if section.settings.background_image != blank %}
-    <img class="gift-guide-bg"
-      src="{{ section.settings.background_image | image_url: width:1440 }}"
-      alt="" width="1440" height="390" loading="eager">
-  {% endif %}
-
-  <div class="page-width">
-    <div class="gift-guide-content">
-      <h2>{{ section.settings.title }}</h2>
-      <p>{{ section.settings.subtitle }}</p>
-      <a href="{{ section.settings.button_link }}" class="gift-guide-btn">{{ section.settings.button_text }}</a>
-      <p class="note-text">SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>
+<section class="hero-section">
+  <div class="hero-content">
+    <div class="hero-mainpage">
+      {% if section.settings.background_image != blank %}
+        <img src="{{ section.settings.background_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image">
+      {% endif %}
     </div>
   </div>
+  <div class="hero-content">
+    <div class="hero-text">
+      <h1 class="hero-title">The Gift Guide</h1>
+      <p class="hero-description">
+        Discover Joy: Your Ultimat Holiday Gift Destination.
+        Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.
+      </p>
+      {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="gift-guide-btn">{{ section.settings.button_text }}</a>
+      {% endif %}
+    </div>
+    <div class="hero-image">
+      {% if section.settings.background_image != blank %}
+        <img src="{{ section.settings.background_image | image_url: '2000x'}}" >
+      {% endif %}
+    </div>
+  </div>
+  <div class="hero-bottom-content">
+    <p class="hero-bottom-text">SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TI 6XL</p>
+  </div>
 </section>
-
-<style>
-#gift-hero-{{ section.id }}{position:relative;min-height:520px}
-#gift-hero-{{ section.id }} .gift-guide-bg{
-  position:absolute;top:64px;left:50%;transform:translateX(-50%);
-  width:1440px;height:390px;object-fit:cover;opacity:1;pointer-events:none;z-index:0}
-#gift-hero-{{ section.id }} .page-width{max-width:1200px;margin:0 auto;padding:0 24px;position:relative;z-index:1}
-#gift-hero-{{ section.id }} .gift-guide-content{
-  max-width:560px;background:rgba(255,255,255,.95);padding:24px 28px;border-radius:12px;backdrop-filter:blur(2px);margin-top:72px}
-#gift-hero-{{ section.id }} h2{margin:0 0 10px;font-size:42px;font-weight:700}
-#gift-hero-{{ section.id }} p{margin:0 0 18px;line-height:1.6}
-#gift-hero-{{ section.id }} .gift-guide-btn{display:inline-block;background:#000;color:#fff;padding:12px 24px;border-radius:6px;text-decoration:none;font-weight:700}
-#gift-hero-{{ section.id }} .note-text{font-size:12px;margin-top:16px;letter-spacing:.06em;text-transform:uppercase}
-@media(max-width:768px){
-  #gift-hero-{{ section.id }} .gift-guide-bg{width:100%;height:auto;left:0;transform:none}
-  #gift-hero-{{ section.id }} .gift-guide-content{margin-top:32px;max-width:100%;padding:16px}
-}
-</style>
 {% schema %}
 {
   "name": "Gift Guide Hero",
