@@ -2,23 +2,18 @@
   <div class="hero-content">
     <div class="hero-mainimage">
       {% if section.settings.background_image != blank %}
-        <img src="{{ section.settings.background_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image">
+        <img src="{{ section.settings.background_image | image_url: width: 2000 }}" alt="Gift Guide Hero" class="hero-main-image">
       {% endif %}
     </div>
   </div>
 </section>
+
 {% schema %}
 {
   "name": "Gift Guide Hero",
   "settings": [
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Illustration"
-    }
+    { "type": "image_picker", "id": "background_image", "label": "Background Illustration" }
   ],
-  "presets": [
-    { "name": "Gift Guide Hero" }
-  ]
+  "presets": [{ "name": "Gift Guide Hero" }]
 }
 {% endschema %}
