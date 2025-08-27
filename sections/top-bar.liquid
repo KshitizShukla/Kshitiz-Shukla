@@ -1,0 +1,52 @@
+<header class="header">
+    <div class="container">
+        <div class="header-content">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+            <div>
+                <div class="logo">TISSOVISON</div>
+                <div class="tagline">Find the ideal gift for your loved ones.</div>
+            </div>
+        {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="cta-button">{{ section.settings.button_text }}</a>
+      {% endif %}
+        </div>
+    </div>
+</header>
+{% schema %}
+{
+  "name": "Simple Header",
+  "settings": [
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "TISSOVISON"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CHOOSE GIFT →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    }
+  ],
+  "presets": [
+    { "name": "Simple Header" }
+  ]
+}
+{% endschema %}
