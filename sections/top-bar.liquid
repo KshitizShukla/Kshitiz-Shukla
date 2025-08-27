@@ -1,122 +1,137 @@
 <header class="header">
-  <div class="container">
-    <div class="header-content">
-      <button class="mobile-menu-btn" id="menuBtn" aria-label="Open menu">
-        <span></span><span></span><span></span>
-      </button>
-
-      <div class="logo">{{ section.settings.logo_text }}</div>
-      <div class="tagline">{{ section.settings.tagline }}</div>
-
-      {% if section.settings.button_link != blank %}
-        <a href="{{ section.settings.button_link }}" class="cta-button">
-          {{ section.settings.button_text }}
-        </a>
+    <div class="container">
+        <div class="header-content">
+            <button class="mobile-menu-btn" id="menuBtn">
+                <span></span>
+                <span></span>
+                <span></span>
+            </button>
+                <div class="logo">TISSO VISON</div>
+                <div class="tagline">Find the ideal gift for your loved ones.</div>
+        {% if section.settings.button_link != blank %}
+        <a href="{{ section.settings.button_link }}" class="cta-button">{{ section.settings.button_text }}</a>
       {% endif %}
+        </div>
     </div>
-  </div>
 </header>
 
 <style>
-/* section-specific header */
-.shopify-section .header {
-  background:#f0f0f0;
-  border-bottom:1px solid #e0e0e0;
-  margin:0;
-  padding:12px 0;
+    .header {
+  background-color: #f0f0f0;
+  padding: 15px 0;
+  border-bottom: 1px solid #e0e0e0;
 }
 
-.shopify-section .header-content {
-  position:relative;
-  display:flex;
-  align-items:center;
-  justify-content:space-between;
-  gap:16px;
-  padding:10px 50px 10px 50px;
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  padding: 10px 50px 10px 50px;
 }
 
-.shopify-section .tagline {
-  position:absolute;
-  left:50%;
-  transform:translateX(-50%);
-  text-align:center;
-  color:#555;
-  font-size:14px;
+.logo {
+  font-size: 24px;
+  font-weight: bold;
+  color: #333;
+  text-transform: uppercase;
+  letter-spacing: 2px;
 }
 
-.shopify-section .logo {
-  font-weight:700;
-  font-size:24px;
-  letter-spacing:2px;
-  text-transform:uppercase;
-  color:#222;
-  white-space:nowrap;
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 5px;
+  flex-direction: column;
+  justify-content: space-around;
+  width: 30px;
+  height: 24px;
 }
 
-.shopify-section .cta-button {
-  background:#ffeb3b;
-  color:#111;
-  padding:10px 18px;
-  border-radius:4px;
-  font-weight:700;
-  text-decoration:none;
-  text-transform:uppercase;
-  display:inline-flex;
-  align-items:center;
-  gap:8px;
-}
-.shopify-section .cta-button:hover { background:#fdd835; }
-.shopify-section .cta-button::after { content:"→"; }
-
-/* hamburger hidden desktop */
-.shopify-section .mobile-menu-btn {
-  display:none;
-  background:0;
-  border:0;
-  cursor:pointer;
-  width:30px;
-  height:24px;
-  padding:0;
-  flex-direction:column;
-  justify-content:space-between;
-}
-.shopify-section .mobile-menu-btn span {
-  display:block;
-  height:3px;
-  background:#333;
-  border-radius:2px;
+.mobile-menu-btn span {
+  display: block;
+  height: 3px;
+  width: 100%;
+  background-color: #333;
+  border-radius: 2px;
+  transition: all 0.3s ease;
 }
 
-/* remove gap before hero */
-.shopify-section:has(> .header)+.shopify-section {
-  margin-top:0!important;
-  padding-top:0!important;
-}
-.shopify-section:has(> .header)+.shopify-section .section,
-.shopify-section:has(> .header)+.shopify-section .spacing-style,
-.shopify-section:has(> .header)+.shopify-section .inherit-spacing {
-  --section-top-offset:0px;
-  padding-top:0;
-  margin-top:0;
+.mobile-menu-btn.active span:nth-child(1) {
+  transform: rotate(45deg) translate(6px, 6px);
 }
 
-/* mobile layout */
-@media(max-width:768px){
-  .shopify-section .header-content {flex-direction:column;gap:6px;justify-content:center}
-  .shopify-section .mobile-menu-btn{display:flex;align-self:flex-start}
-  .shopify-section .tagline{position:static;transform:none;margin:6px 0 0}
+.mobile-menu-btn.active span:nth-child(2) {
+  opacity: 0;
+}
+
+.mobile-menu-btn.active span:nth-child(3) {
+  transform: rotate(-45deg) translate(6px, -6px);
+}
+
+.tagline {
+  font-size: 14px;
+  color: #666;
+  margin: 5px 0;
+}
+
+.cta-button {
+  background-color: #ffeb3b;
+  color: #333;
+  padding: 12px 24px;
+  text-decoration: none;
+  font-weight: bold;
+  text-transform: uppercase;
+  border-radius: 4px;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.cta-button:hover {
+  background-color: #fdd835;
+  transform: translateY(-2px);
+}
+
+.cta-button::after {
+  content: "→";
+  font-size: 16px;
 }
 </style>
-
 {% schema %}
 {
   "name": "Simple Header",
   "settings": [
-    { "type": "text", "id": "logo_text", "label": "Logo text", "default": "TISSO VISON" },
-    { "type": "text", "id": "tagline", "label": "Tagline", "default": "Find the ideal gift for your loved ones." },
-    { "type": "text", "id": "button_text", "label": "Button text", "default": "CHOOSE GIFT" },
-    { "type": "url",  "id": "button_link", "label": "Button link", "default": "/collections/all" }
+    {
+      "type": "text",
+      "id": "logo_text",
+      "label": "Logo text",
+      "default": "TISSOVISON"
+    },
+    {
+      "type": "text",
+      "id": "tagline",
+      "label": "Tagline",
+      "default": "Find the ideal gift for your loved ones."
+    },
+    {
+      "type": "text",
+      "id": "button_text",
+      "label": "Button text",
+      "default": "CHOOSE GIFT →"
+    },
+    {
+      "type": "url",
+      "id": "button_link",
+      "label": "Button link",
+      "default": "/collections/all"
+    }
   ],
-  "presets": [{ "name": "Simple Header" }]
+  "presets": [
+    { "name": "Simple Header" }
+  ]
 }
 {% endschema %}
