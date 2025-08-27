@@ -13,26 +13,28 @@
       "type": "main-page",
       "settings": {}
     },
+    "top_bar_7e4pjG": {
+      "type": "top-bar",
+      "name": "Simple Header",
+      "settings": {
+        "logo_text": "TISSOVISON",
+        "tagline": "Find the ideal gift for your loved ones.",
+        "button_text": "CHOOSE GIFT",
+        "button_link": "shopify://collections/all"
+      }
+    },
     "gift_guide_VJRALP": {
       "type": "gift-guide",
-      "custom_css": [
-        ".hero-section {background-color: #fff; position: relative; overflow: hidden; min-height: 60vh;}",
-        ".hero-content {display: flex; align-items: center; min-height: 60vh; width: 100%;}",
-        "@media (max-width: 786px) {.herom-mainimage {display: none; }}",
-        ".hero-main-image{width: 100%; height: 100%; object-fit: cover;}"
-      ],
+      "custom_css": [],
       "name": "Gift Guide Hero",
       "settings": {
-        "background_image": "shopify://shop_images/Frame_2.png",
-        "title": "The Gift Guide",
-        "subtitle": "Discover joy: Your ultimate holiday gift destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season.",
-        "button_text": "Shop Now",
-        "button_link": ""
+        "background_image": "shopify://shop_images/Frame_2.png"
       }
     }
   },
   "order": [
     "main",
+    "top_bar_7e4pjG",
     "gift_guide_VJRALP"
   ]
 }
