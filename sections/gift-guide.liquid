@@ -2,32 +2,33 @@
 <section class="hero-section">
   <div class="hero-content">
     <div class="hero-mainimage">
-      <img src="images/hero-mainframe.png" alt="Gift Guide Hero" class="hero-main-image">
+      {% if section.settings.main_image %}
+        <img src="{{ section.settings.main_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image">
+      {% endif %}
     </div>
   </div>
 
   <div class="hero-content hero-bottom-content">
     <div class="hero-text">
-      <h1 class="hero-title">The Gift Guide</h1>
-      <p class="hero-description">
-        Discover Joy: Your Ultimate Holiday Gift Destination.
-        Explore our curated selection and find the perfect gifts to
-        delight your loved ones this holiday season.
-      </p>
-      <a href="#products" class="shop-button hide-mb" id="shopBtn">Shop Now
+      <h1 class="hero-title">{{ section.settings.title }}</h1>
+      <p class="hero-description">{{ section.settings.description }}</p>
+      <a href="{{ section.settings.button_link }}" class="shop-button hide-dk" id="shopBtn">
+        {{ section.settings.button_text_shopnow }}
         <i class="fas fa-arrow-right"></i>
       </a>
     </div>
     <div class="hero-image">
-      <img src="images/hero-frame-side.png" alt="Gift Guide Hero" class="hero-main-image hide-mb">
-      <a href="#products" class="shop-button hide-dk" id="shopBtn">Shop Now
-        <i class="fas fa-arrow-right"></i>
-      </a>
+      {% if section.settings.side_image %}
+        <img src="{{ section.settings.side_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image hide-mb">
+        <a href="{{ section.settings.button_link }}" class="shop-button hide-dk" id="shopBtn">
+          {{ section.settings.button_text_shopnow }} <i class="fas fa-arrow-right"></i>
+        </a>
+      {% endif %}
     </div>
   </div>
 
   <div class="hero-bottom-content">
-    <p class="hero-bottom-text">SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>
+    <p class="hero-bottom-text">{{ section.settings.bottom_text }}</p>
   </div>
 </section>
 
@@ -71,7 +72,7 @@
 </style>
 
 <script>
-/* smooth scroll for both Shop Now buttons (same id in source, so use query) */
+/* optional smooth scroll if linking to #products somewhere */
 document.addEventListener('DOMContentLoaded',()=>{
   document.querySelectorAll('a.shop-button[href="#products"]').forEach(btn=>{
     btn.addEventListener('click',e=>{
@@ -81,3 +82,21 @@ document.addEventListener('DOMContentLoaded',()=>{
   });
 });
 </script>
+
+{% schema %}
+{
+  "name": "Gift Guide Hero",
+  "settings": [
+    { "type": "image_picker", "id": "main_image", "label": "Main Hero Image" },
+    { "type": "text", "id": "title", "label": "Heading", "default": "The Gift Guide" },
+    { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "text", "id": "button_text_shopnow", "label": "Button Text", "default": "SHOP NOW" },
+    { "type": "url", "id": "button_link", "label": "Button Link", "default": "/collections/all" },
+    { "type": "image_picker", "id": "side_image", "label": "Hero Side Image" },
+    { "type": "text", "id": "bottom_text", "label": "Bottom text strip", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
+  ],
+  "presets": [
+    { "name": "Gift Guide Hero" }
+  ]
+}
+{% endschema %}
