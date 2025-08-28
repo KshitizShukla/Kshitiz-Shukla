@@ -76,7 +76,7 @@
     }
     .product-image{
         width:100%;
-        height=auto;
+        height:auto;
         position:relative;
         display:flex;
         align-items:center;
@@ -93,7 +93,7 @@
     .product-card:hover .product-image img{
         transform:scale(1.05)
     }
-    .prouct-plus-icon{
+   .product-plus-icon{
         position:absolute;
         top:50%;
         left:50%;
@@ -113,7 +113,7 @@
         z-index:3;
         cursor:pointer
     }
-    .product-card:hover product-plus-icon{
+    .product-card:hover .product-plus-icon{
         transform:translate(-50%,-50%) scale(1.1)
     }
     .product-plus-icon:hover{
@@ -123,17 +123,17 @@
     /*fade-in*/
     .fade-in{
         opacity:0;
-        transform:translate(30px);
+        transform:translateY(30px);
         transition:all .6s
     }
     .fade-in.visible{
         opacity:1;
-        transform:translate(0)
+        transform:translateY(0);
     }
     @media(max-width:768px){
         .product-grid{grid-template-columns:1fr;gap:15px}
     }
-    @media(max-width:1024px) and (min-width(769){
+    @media (max-width:1024px) and (min-width:769px){
         .product-grid{grid-template-columns:repeat(2,1fr)}
     }
 </style>
@@ -142,10 +142,26 @@
     document.addEventListener('DOMContentLoaded',()=>{
         function showOnScroll(){
             document.querySelectorAll('.fade-in').forEach(el=>{
-                const r=el.getBoundingClientRect();
-                if(r.top < innerHeight - 50) el.classList.add('visible');
+            const r=el.getBoundingClientRect();
+            if(r.top < innerHeight - 50) el.classList.add('visible');
             });
-            addEventListener('scroll',showOnScroll);
-            showOnScroll();
-        }});
+        }
+        window.addEventListener('scroll', showOnScroll);
+        showOnScroll();
+    });
 </script>
+
+{% schema %}{
+    "name":"Product Grid",
+    "settings": [
+        { "type": "image_picker", "id": "product_image_00", "label": "Product 00" },
+        { "type": "image_picker", "id": "product_image_01", "label": "Product 01" },
+        { "type": "image_picker", "id": "product_image_02", "label": "Product 02" },
+        { "type": "image_picker", "id": "product_image_03", "label": "Product 03" },
+        { "type": "image_picker", "id": "product_image_04", "label": "Product 04" },
+        { "type": "image_picker", "id": "product_image_05", "label": "Product 05" }
+    ],
+    "presets":[
+        {"name":"Product Grid"}
+    ]
+}{% endschema%}
