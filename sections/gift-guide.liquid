@@ -1,46 +1,83 @@
+<!-- SECTION 2: HERO (TOP IMAGE + TEXT + SIDE IMAGE) -->
 <section class="hero-section">
   <div class="hero-content">
     <div class="hero-mainimage">
-      {% if section.settings.background_image != blank %}
-        <img src="{{ section.settings.background_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image">
-      {% endif %}
+      <img src="images/hero-mainframe.png" alt="Gift Guide Hero" class="hero-main-image">
     </div>
+  </div>
+
+  <div class="hero-content hero-bottom-content">
+    <div class="hero-text">
+      <h1 class="hero-title">The Gift Guide</h1>
+      <p class="hero-description">
+        Discover Joy: Your Ultimate Holiday Gift Destination.
+        Explore our curated selection and find the perfect gifts to
+        delight your loved ones this holiday season.
+      </p>
+      <a href="#products" class="shop-button hide-mb" id="shopBtn">Shop Now
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+    <div class="hero-image">
+      <img src="images/hero-frame-side.png" alt="Gift Guide Hero" class="hero-main-image hide-mb">
+      <a href="#products" class="shop-button hide-dk" id="shopBtn">Shop Now
+        <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </div>
+
+  <div class="hero-bottom-content">
+    <p class="hero-bottom-text">SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL</p>
   </div>
 </section>
 
 <style>
- /* hero-image-top.css */
-.hero-section{
-  background:#fff;
-  position:relative;
-  overflow:hidden;
+/* Hero base */
+.hero-section{background:#fff;position:relative;overflow:hidden;min-height:60vh}
+.hero-content{display:flex;align-items:center;min-height:60vh;width:100%}
+.hero-bottom-text{background:#f5f5f5;padding:10px 0;text-align:center;letter-spacing:1pt}
+/* text block */
+.hero-bottom-content .hero-text{flex:1;padding:60px 40px;z-index:2;max-width:40%;padding-left:10%}
+.hero-title{font-size:48px;font-weight:bold;color:#333;margin-bottom:20px;line-height:1.2}
+.hero-bottom-content .hero-description{font-size:16px;color:#666;margin-bottom:30px;max-width:400px}
+/* buttons */
+.shop-button{background:#333;color:#fff;padding:15px 30px;text-decoration:none;font-weight:bold;text-transform:uppercase;transition:.3s;display:inline-block!important}
+.shop-button:hover{background:#555}
+.shop-button i{margin-left:8px}
+/* images */
+.hero-bottom-content .hero-image{flex:1;position:relative;max-width:60%;width:100%}
+.hero-main-image{width:100%;height:100%;object-fit:contain}
+.hide-dk{display:none!important}
+/* mobile */
+@media (max-width:768px){
+  .hero-mainimage{display:none}
+  .hero-bottom-content{background:url(images/hero-frame-side.png) no-repeat bottom/contain}
+  .hide-mb{display:none!important}
+  .hide-dk{display:block}
+  .hero-content{flex-direction:column-reverse;min-height:auto}
+  .hero-bottom-content .hero-text{padding:40px 20px;text-align:center;max-width:100%;order:2}
+  .hero-bottom-content .hero-image{order:1;height:auto;min-height:auto;padding:40px 0;text-align:center}
+  .hero-title{font-size:36px}
+  .hero-bottom-content .hero-description{max-width:100%}
 }
-.hero-section--top .hero-content{
-  display:flex;
-  align-items:center;
-  min-height:60vh;
-  width:100%
+@media (max-width:480px){
+  .hero-title{font-size:28px}
+  .hero-bottom-content .hero-text{padding:30px 15px}
 }
-.hero-main-image{
-  width:100%;
-  height:100%;
-  object-fit:cover;
+@media (max-width:1024px) and (min-width:769px){
+  .hero-bottom-content .hero-text{padding:20px 40px;max-width:50%}
+  .hero-title{font-size:42px}
 }
-@media(max-width:768px){.hero-mainimage{display:none}}
 </style>
 
-{% schema %}
-{
-  "name": "Gift Guide Hero",
-  "settings": [
-    {
-      "type": "image_picker",
-      "id": "background_image",
-      "label": "Background Illustration"
-    }
-  ],
-  "presets": [
-    { "name": "Gift Guide Hero" }
-  ]
-}
-{% endschema %}
+<script>
+/* smooth scroll for both Shop Now buttons (same id in source, so use query) */
+document.addEventListener('DOMContentLoaded',()=>{
+  document.querySelectorAll('a.shop-button[href="#products"]').forEach(btn=>{
+    btn.addEventListener('click',e=>{
+      e.preventDefault();
+      document.getElementById('products')?.scrollIntoView({behavior:'smooth'});
+    });
+  });
+});
+</script>
