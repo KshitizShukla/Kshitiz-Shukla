@@ -40,121 +40,121 @@
     "product_grid_ABC123": {
       "type": "product-grid",
       "blocks": {
-        "product_6hF78q": {
+        "product_KiLrRH": {
           "type": "product",
           "settings": {
             "product": "black-leather-bag"
           }
         },
-        "product_BfpenU": {
+        "product_3U47aa": {
           "type": "product",
           "settings": {
             "product": "blue-silk-tuxedo"
           }
         },
-        "product_FFrb6K": {
+        "product_KVFyRV": {
           "type": "product",
           "settings": {
             "product": "chequered-red-shirt"
           }
         },
-        "product_tyagrx": {
+        "product_DRxEfG": {
           "type": "product",
           "settings": {
             "product": "classic-leather-jacket"
           }
         },
-        "product_MzpXB4": {
+        "product_zWnRW4": {
           "type": "product",
           "settings": {
             "product": "classic-varsity-top"
           }
         },
-        "product_JKECj7": {
+        "product_7fpWLz": {
           "type": "product",
           "settings": {
             "product": "dark-denim-top"
           }
         },
-        "product_D4XBNH": {
+        "product_zagiDe": {
           "type": "product",
           "settings": {
             "product": "floral-white-top"
           }
         },
-        "product_bLJpbh": {
+        "product_YpTRJL": {
           "type": "product",
           "settings": {
             "product": "led-high-tops"
           }
         },
-        "product_F4dbt8": {
+        "product_Nz3qrk": {
           "type": "product",
           "settings": {
             "product": "longsleeve-cotton-top"
           }
         },
-        "product_tqUECL": {
+        "product_MkUcXx": {
           "type": "product",
           "settings": {
             "product": "navy-sport-jacket"
           }
         },
-        "product_kqQHV7": {
+        "product_KeChEV": {
           "type": "product",
           "settings": {
             "product": "ocean-blue-shirt"
           }
         },
-        "product_HFngWB": {
+        "product_bkehRk": {
           "type": "product",
           "settings": {
             "product": "olive-green-jacket"
           }
         },
-        "product_wCxELi": {
+        "product_NeWHxq": {
           "type": "product",
           "settings": {
             "product": "red-sports-tee"
           }
         },
-        "product_PyfAkE": {
+        "product_bLwbwP": {
           "type": "product",
           "settings": {
             "product": "silk-summer-top"
           }
         },
-        "product_FLUn8e": {
+        "product_VjwRw9": {
           "type": "product",
           "settings": {
             "product": "dark-winter-jacket"
           }
         },
-        "product_3pzCKk": {
+        "product_WFQLgA": {
           "type": "product",
           "settings": {
             "product": "striped-silk-blouse"
           }
         },
-        "product_CpwrCF": {
+        "product_NbPezW": {
           "type": "product",
           "settings": {
             "product": "striped-skirt-and-top"
           }
         },
-        "product_CLbiTp": {
+        "product_MybtmP": {
           "type": "product",
           "settings": {
             "product": "white-cotton-shirt"
           }
         },
-        "product_Lg3rTf": {
+        "product_6GQHcM": {
           "type": "product",
           "settings": {
             "product": "yellow-wool-jumper"
           }
         },
-        "product_xknnrg": {
+        "product_w77eQi": {
           "type": "product",
           "settings": {
             "product": "zipped-jacket"
@@ -162,26 +162,26 @@
         }
       },
       "block_order": [
-        "product_6hF78q",
-        "product_BfpenU",
-        "product_FFrb6K",
-        "product_tyagrx",
-        "product_MzpXB4",
-        "product_JKECj7",
-        "product_D4XBNH",
-        "product_bLJpbh",
-        "product_F4dbt8",
-        "product_tqUECL",
-        "product_kqQHV7",
-        "product_HFngWB",
-        "product_wCxELi",
-        "product_PyfAkE",
-        "product_FLUn8e",
-        "product_3pzCKk",
-        "product_CpwrCF",
-        "product_CLbiTp",
-        "product_Lg3rTf",
-        "product_xknnrg"
+        "product_KiLrRH",
+        "product_3U47aa",
+        "product_KVFyRV",
+        "product_DRxEfG",
+        "product_zWnRW4",
+        "product_7fpWLz",
+        "product_zagiDe",
+        "product_YpTRJL",
+        "product_Nz3qrk",
+        "product_MkUcXx",
+        "product_KeChEV",
+        "product_bkehRk",
+        "product_NeWHxq",
+        "product_bLwbwP",
+        "product_VjwRw9",
+        "product_WFQLgA",
+        "product_NbPezW",
+        "product_MybtmP",
+        "product_6GQHcM",
+        "product_w77eQi"
       ],
       "settings": {
         "heading": "Tisso vison in the wild"
@@ -196,22 +196,6 @@
         "button_text": "Choose Gift",
         "button_link": "shopify://collections/all"
       }
-    },
-    "product_modal_DjXVcQ": {
-      "type": "product-modal",
-      "blocks": {
-        "product_xyrmdy": {
-          "type": "product",
-          "settings": {
-            "product": "black-leather-bag"
-          }
-        }
-      },
-      "block_order": [
-        "product_xyrmdy"
-      ],
-      "name": "Product Modal",
-      "settings": {}
     }
   },
   "order": [
@@ -219,7 +203,6 @@
     "top_bar_7e4pjG",
     "gift_guide_VJRALP",
     "product_grid_ABC123",
-    "mobile_menu_CdHEfj",
-    "product_modal_DjXVcQ"
+    "mobile_menu_CdHEfj"
   ]
 }
