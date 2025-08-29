@@ -29,24 +29,12 @@
 </section>
 
 <style>
-.container {
-  max-width: 1200px;
-  margin: 0 auto;
-  padding: 0 20px;
-}
-.product-heading {
-  margin: 10px 0 16px;
-  text-align: left;
-}
-.product-section {
-  padding: 60px 40px;
-  background: #fff;
-}
 .product-grid {
   display: grid;
   gap: 20px;
   grid-template-columns: repeat(3,1fr);
 }
+
 .product-card {
   position: relative;
   overflow: hidden;
@@ -57,8 +45,11 @@
   margin: 10px;
 }
 .product-card:hover {transform: translateY(-5px);}
+
+/* ✅ fix aspect ratio here */
 .product-image {
   width: 100%;
+  aspect-ratio: 3 / 4;   /* <-- card always 3:4 instead of 1:1 */
   position: relative;
   display: flex;
   align-items: center;
@@ -66,45 +57,38 @@
   overflow: hidden;
   background: #f5f5f5;
 }
+
 .product-image img {
   width: 100%;
-  aspect-ratio: 3/4; /* keeps product cards tall instead of square */
-  object-fit: cover;
+  height: 100%;
+  object-fit: cover;  /* keeps proportions but crops nicely */
   transition: transform .3s;
 }
 .product-card:hover .product-image img {transform: scale(1.05);}
+
+/* plus icon */
 .product-plus-icon {
   position: absolute;
-  top: 50%;
-  left: 50%;
+  top: 50%; left: 50%;
   transform: translate(-50%,-50%);
-  width: 50px;
-  height: 50px;
+  width: 50px; height: 50px;
   background: rgba(255,255,255,.9);
   border: 2px solid #333;
   border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 24px;
-  font-weight: 700;
-  color: #333;
-  transition: .3s;
-  z-index: 3;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 24px; font-weight: 700; color: #333;
+  transition: .3s; z-index: 3;
 }
 .product-card:hover .product-plus-icon {transform: translate(-50%,-50%) scale(1.1);}
-.product-plus-icon:hover {background: #333; color: #fff;}
-/* fade-in */
-.fade-in {opacity: 0; transform: translateY(30px); transition: all .6s;}
-.fade-in.visible {opacity: 1; transform: translateY(0);}
+.product-plus-icon:hover {background:#333; color:#fff;}
 
-/* responsive layouts */
+/* responsive */
 @media (max-width:768px){
-  .product-grid {grid-template-columns: repeat(2,1fr);} /* 2 per row on mobile */
-  .product-heading {text-align: center;} /* center heading on mobile */
+  .product-grid {grid-template-columns: repeat(2,1fr);} /* ✅ 2 per row on mobile */
+  .product-heading {text-align: center;}
 }
 @media (max-width:480px){
-  .product-grid {grid-template-columns: 1fr;} /* fallback: 1 column on very small screens */
+  .product-grid {grid-template-columns: 1fr;} /* ✅ 1 per row tiny screens */
 }
 @media (max-width:1024px) and (min-width:769px){
   .product-grid {grid-template-columns: repeat(2,1fr);}
