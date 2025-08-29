@@ -1,6 +1,6 @@
 <section id="products" class="product-section">
     <div class="section-header">
-        <h2 class="section-title">{{ section.settings.section_title | default: "Tisso vison in the wild" }}</h2>
+        <h3 class="section-title">{{ section.settings.section_title | default: "Tisso vison in the wild" }}</h3>
     </div>
     <div class="container">
         <div class="product-grid">
@@ -9,7 +9,7 @@
                     {% if section.settings.product_image_00 %}
                         <img src="{{ section.settings.product_image_00 | img_url:'2000x'}}" alt="Premium Leather Bag">
                     {% endif %}
-                    <div class="product-plus-icon bag-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
             <div class="product-card fade-in" onclick="openModal(1)">
@@ -17,7 +17,7 @@
                     {% if section.settings.product_image_01 %}
                         <img src="{{ section.settings.product_image_01 | img_url:'2000x'}}" alt="Formal Wear Collection">
                     {% endif %}
-                    <div class="product-plus-icon suit-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
             <div class="product-card fade-in" onclick="openModal(2)">
@@ -25,7 +25,7 @@
                     {% if section.settings.product_image_02 %}
                         <img src="{{ section.settings.product_image_02 | img_url:'2000x'}}" alt="Casual Street Style">
                     {% endif %}
-                    <div class="product-plus-icon shirt-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
             <div class="product-card fade-in" onclick="openModal(3)">
@@ -33,7 +33,7 @@
                     {% if section.settings.product_image_03 %}
                         <img src="{{ section.settings.product_image_03 | img_url:'2000x'}}" alt="Leather Jacket">
                     {% endif %}
-                    <div class="product-plus-icon jacket-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
             <div class="product-card fade-in" onclick="openModal(4)">
@@ -41,7 +41,7 @@
                     {% if section.settings.product_image_04 %}
                         <img src="{{ section.settings.product_image_04 | img_url:'2000x'}}" alt="Sports & Active">
                     {% endif %}
-                    <div class="product-plus-icon varsity-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
             <div class="product-card fade-in" onclick="openModal(5)">
@@ -49,7 +49,7 @@
                     {% if section.settings.product_image_05 %}
                         <img src="{{ section.settings.product_image_05 | img_url:'2000x'}}" alt="Designer Accesories">
                     {% endif %}
-                    <div class="product-plus-icon woman-position">+</div>
+                    <div class="product-plus-icon">+</div>
                 </div>
             </div>
         </div>
@@ -67,14 +67,14 @@
         border:none
     }
     .section-title{
-        font-size:16px;
         font-weight:400;
         color:#333;
         margin:0 0 20px 0;
         text-align:left;
         max-width:1200px;
         margin:0 auto 20px auto;
-        padding:0 20px
+        padding:0 0 20px 0;
+        font-family:Lustria
     }
     .container{
         padding:0
@@ -120,6 +120,9 @@
     }
    .product-plus-icon{
         position:absolute;
+        top:30%;
+        left:70%;
+        transform:translate(-50%,-50%);
         width:24px;
         height:24px;
         background:rgba(255,255,255,.95);
@@ -135,48 +138,7 @@
         z-index:3;
         cursor:pointer
     }
-    
-    /* Individual positioning for each product */
-    .bag-position{
-        top:55%;
-        left:35%;
-        transform:translate(-50%,-50%)
-    }
-    .suit-position{
-        top:25%;
-        right:15%;
-        transform:translate(50%,-50%)
-    }
-    .shirt-position{
-        top:25%;
-        right:15%;
-        transform:translate(50%,-50%)
-    }
-    .jacket-position{
-        top:35%;
-        left:25%;
-        transform:translate(-50%,-50%)
-    }
-    .varsity-position{
-        top:40%;
-        right:20%;
-        transform:translate(50%,-50%)
-    }
-    .woman-position{
-        top:30%;
-        right:15%;
-        transform:translate(50%,-50%)
-    }
     .product-card:hover .product-plus-icon{
-        transform:scale(1.1)
-    }
-    .bag-position:hover{
-        transform:translate(-50%,-50%) scale(1.1)
-    }
-    .suit-position:hover, .shirt-position:hover, .varsity-position:hover, .woman-position:hover{
-        transform:translate(50%,-50%) scale(1.1)
-    }
-    .jacket-position:hover{
         transform:translate(-50%,-50%) scale(1.1)
     }
     .product-plus-icon:hover{
