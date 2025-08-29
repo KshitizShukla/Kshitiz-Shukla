@@ -110,34 +110,17 @@
   }
   .pg-modal__image img{width:100%;height:220px;border-radius:6px 6px 0 0}
 }
+.pg-color-btn{position:relative}
+.pg-color-btn::before{
+  content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
+  background:var(--swatch, #111); /* set from JS per option */
+}
 </style>
 
 <script>
-/* Build product dataset from selected blocks */
-window.pgProducts = [
-  {% for block in section.blocks %}
-    {% assign p = block.settings.product %}
-    {% if p %}
-    {
-      id: {{ p.id | json }},
-      title: {{ p.title | json }},
-      description: {{ p.description | strip_html | json }},
-      price_html: {{ p.price | money | json }},
-      price_min_html: {{ p.price_min | money | json }},
-      price_varies: {{ p.price_varies | json }},
-      image: {{ p.featured_image | image_url: width: 900 | json }},
-      image_alt: {{ p.featured_image.alt | default: p.title | json }},
-      options: {{ p.options | json }},
-      variants: [
-        {% for v in p.variants %}
-        { id: {{ v.id | json }}, title: {{ v.title | json }}, available: {{ v.available | json }}, price_html: {{ v.price | money | json }}, option1: {{ v.option1 | json }}, option2: {{ v.option2 | json }}, option3: {{ v.option3 | json }} }{% unless forloop.last %},{% endunless %}
-        {% endfor %}
-      ]
-    }{% unless forloop.last %},{% endunless %}
-    {% endif %}
-  {% endfor %}
-];
-
+/* ===== Product Modal JS =====
+   Requires window.pgProducts (array) to be defined by Liquid blocks.
+*/
 (function(){
   const modal = document.getElementById('pgModal');
   const closeBtn = document.getElementById('pgClose');
@@ -151,40 +134,55 @@ window.pgProducts = [
   const variantSel = document.getElementById('pgVariant');
   const addBtn = document.getElementById('pgAdd');
 
+  // Lightbox
   const lightbox = document.getElementById('pgLightbox');
   const lightboxImg = document.getElementById('pgLightboxImg');
   const imgWrapper = document.querySelector('.pg-modal__image');
 
-  let current=null, selectedColor=null, colorIndex=-1, sizeIndex=-1;
+  let current = null, selectedColor = null, colorIndex = -1, sizeIndex = -1;
 
-  // map common color names → CSS colors (fallback: raw value)
+  // Map common color names to CSS colors (fallback to raw name)
   function cssColorFrom(name){
     const n=(name||'').trim().toLowerCase();
-    const map={black:'#000',white:'#fff',red:'#d00',blue:'#17c',green:'#2a7',grey:'#666',gray:'#666',brown:'#6b4b3e',beige:'#d9c9a3',pink:'#e77',purple:'#7a4cbb',orange:'#f78a1d',yellow:'#ffcf33'};
+    const map={
+      black:'#000', white:'#fff', red:'#d00', blue:'#17c', green:'#2a7',
+      grey:'#666', gray:'#666', brown:'#6b4b3e', beige:'#d9c9a3',
+      pink:'#e77', purple:'#7a4cbb', orange:'#f78a1d', yellow:'#ffcf33'
+    };
     return map[n] || n || '#111';
   }
 
   function renderColors(p){
     colorsEl.innerHTML='';
     colorIndex = (p.options||[]).findIndex(o=>/color/i.test(o));
-    if(colorIndex===-1){ colorWrap.style.display='none'; selectedColor=null; return; }
+    if(colorIndex === -1){ colorWrap.style.display='none'; selectedColor=null; return; }
 
     const set = new Set((p.variants||[]).map(v=>v['option'+(colorIndex+1)]).filter(Boolean));
     const values=[...set];
     colorWrap.style.display = values.length ? 'block' : 'none';
     selectedColor = values[0] || null;
 
-    // center divider color
-    modal.querySelector('.pg-modal__product').style.setProperty('--seg-accent', cssColorFrom(selectedColor));
+    // Center divider adopts active color
+    modal.querySelector('.pg-modal__product')
+         .style.setProperty('--seg-accent', cssColorFrom(selectedColor));
 
     values.forEach(val=>{
       const b=document.createElement('button');
-      b.type='button'; b.className='pg-color-btn'+(val===selectedColor?' active':'');
+      b.type='button';
+      b.className='pg-color-btn'+(val===selectedColor?' active':'');
       b.textContent=val;
+
+      // Left swatch strip color (CSS variable used by ::before)
+      b.style.setProperty('--swatch', cssColorFrom(val));
+
       b.addEventListener('click',()=>{
         selectedColor=val;
-        document.querySelectorAll('.pg-color-btn').forEach(x=>x.classList.toggle('active',x===b));
-        modal.querySelector('.pg-modal__product').style.setProperty('--seg-accent', cssColorFrom(selectedColor));
+        document.querySelectorAll('.pg-color-btn')
+          .forEach(x=>x.classList.toggle('active',x===b));
+
+        modal.querySelector('.pg-modal__product')
+             .style.setProperty('--seg-accent', cssColorFrom(selectedColor));
+
         renderSizes(p);
       });
       colorsEl.appendChild(b);
@@ -194,18 +192,21 @@ window.pgProducts = [
   function renderSizes(p){
     variantSel.innerHTML = '<option value="">Choose your size</option>';
     sizeIndex = (p.options||[]).findIndex(o=>/size/i.test(o));
+
+    // Filter variants by selected color (if any)
     let pool = p.variants||[];
     if(colorIndex>-1 && selectedColor){
       pool = pool.filter(v=>v['option'+(colorIndex+1)]===selectedColor);
     }
-    const hasSize = sizeIndex>-1;
+
+    const hasSize = sizeIndex > -1;
     sizeWrap.style.display = hasSize ? 'block' : 'none';
 
     if(hasSize){
-      const label = 'option'+(sizeIndex+1);
+      const keyName = 'option'+(sizeIndex+1);
       const bySize = new Map();
       pool.forEach(v=>{
-        const key = v[label] || v.title;
+        const key = v[keyName] || v.title;
         if(!bySize.has(key)) bySize.set(key, v);
         else if(!bySize.get(key).available && v.available) bySize.set(key, v);
       });
@@ -220,18 +221,22 @@ window.pgProducts = [
       const first = pool.find(v=>v.available) || pool[0];
       if(first){
         const opt=document.createElement('option');
-        opt.value=first.id; opt.textContent=first.title; variantSel.appendChild(opt);
+        opt.value=first.id;
+        opt.textContent=first.title;
+        variantSel.appendChild(opt);
         variantSel.value = first.id;
       }
     }
   }
 
-  // Public API used by your grid cards
+  // Public API: call openModal(index) from your product grid
   window.openModal = function(i){
-    const p = (window.pgProducts||[])[i]; if(!p) return;
-    current = p;
+    const p = (window.pgProducts||[])[i];
+    if(!p) return;
 
-    img.src = p.image || ''; img.alt = p.image_alt || p.title || '';
+    current = p;
+    img.src = p.image || '';
+    img.alt = p.image_alt || p.title || '';
     title.textContent = p.title || '';
     price.textContent = p.price_varies ? ('From ' + (p.price_min_html||'')) : (p.price_html||'');
     desc.textContent = p.description || '';
@@ -243,32 +248,52 @@ window.pgProducts = [
     document.body.style.overflow='hidden';
   };
 
-  function close(){ modal.classList.remove('active'); document.body.style.overflow='auto'; }
-  closeBtn.addEventListener('click', close);
-  modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') { close(); lightbox.classList.remove('active'); } });
+  function closeModal(){
+    modal.classList.remove('active');
+    document.body.style.overflow='auto';
+  }
+
+  // Events
+  closeBtn?.addEventListener('click', closeModal);
+  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown', e=>{
+    if(e.key==='Escape'){
+      closeModal();
+      lightbox.classList.remove('active');
+    }
+  });
 
   addBtn.addEventListener('click', async ()=>{
     if(!current) return;
-    let variantId = variantSel.value ? Number(variantSel.value) :
-                    Number((current.variants||[]).find(v=>v.available)?.id || current.variants?.[0]?.id || 0);
+
+    let variantId = variantSel.value ? Number(variantSel.value)
+      : Number((current.variants||[]).find(v=>v.available)?.id || current.variants?.[0]?.id || 0);
+
     if(!variantId){ alert('This product is unavailable.'); return; }
+
     try{
-      await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({id:variantId,quantity:1})});
+      await fetch('/cart/add.js', {
+        method:'POST',
+        headers:{'Content-Type':'application/json','Accept':'application/json'},
+        body:JSON.stringify({id:variantId, quantity:1})
+      });
       alert('Added to cart!');
-      close();
-    }catch{ alert('Could not add to cart.'); }
+      closeModal();
+    }catch(e){
+      alert('Could not add to cart.');
+    }
   });
 
-  /* Click-to-expand image */
-  imgWrapper?.addEventListener('click', () => {
-    if (!img.src) return;
-    lightbox.querySelector('#pgLightboxImg').src = img.src;
+  // Lightbox (click image to expand)
+  imgWrapper?.addEventListener('click', ()=>{
+    if(!img.src) return;
+    lightboxImg.src = img.src;
     lightbox.classList.add('active');
   });
-  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
+  lightbox.addEventListener('click', ()=> lightbox.classList.remove('active'));
 })();
 </script>
+
 
 {% schema %}
 {
