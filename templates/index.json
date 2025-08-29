@@ -196,6 +196,155 @@
         "button_text": "Choose Gift",
         "button_link": "shopify://collections/all"
       }
+    },
+    "product_modal_a3YEza": {
+      "type": "product-modal",
+      "blocks": {
+        "product_CkUdYj": {
+          "type": "product",
+          "settings": {
+            "product": "black-leather-bag"
+          }
+        },
+        "product_fgGnwJ": {
+          "type": "product",
+          "settings": {
+            "product": "blue-silk-tuxedo"
+          }
+        },
+        "product_ztHziy": {
+          "type": "product",
+          "settings": {
+            "product": "chequered-red-shirt"
+          }
+        },
+        "product_ein8X6": {
+          "type": "product",
+          "settings": {
+            "product": "classic-leather-jacket"
+          }
+        },
+        "product_fYxYwK": {
+          "type": "product",
+          "settings": {
+            "product": "classic-varsity-top"
+          }
+        },
+        "product_tGLiPw": {
+          "type": "product",
+          "settings": {
+            "product": "dark-denim-top"
+          }
+        },
+        "product_jjzpDc": {
+          "type": "product",
+          "settings": {
+            "product": "floral-white-top"
+          }
+        },
+        "product_T47i3U": {
+          "type": "product",
+          "settings": {
+            "product": "led-high-tops"
+          }
+        },
+        "product_wqwFdL": {
+          "type": "product",
+          "settings": {
+            "product": "longsleeve-cotton-top"
+          }
+        },
+        "product_QEzwp4": {
+          "type": "product",
+          "settings": {
+            "product": "navy-sport-jacket"
+          }
+        },
+        "product_jgMDXb": {
+          "type": "product",
+          "settings": {
+            "product": "ocean-blue-shirt"
+          }
+        },
+        "product_Dntg6m": {
+          "type": "product",
+          "settings": {
+            "product": "olive-green-jacket"
+          }
+        },
+        "product_m3xgDm": {
+          "type": "product",
+          "settings": {
+            "product": "red-sports-tee"
+          }
+        },
+        "product_ndEBiV": {
+          "type": "product",
+          "settings": {
+            "product": "silk-summer-top"
+          }
+        },
+        "product_F7gEYH": {
+          "type": "product",
+          "settings": {
+            "product": "dark-winter-jacket"
+          }
+        },
+        "product_BJaR6g": {
+          "type": "product",
+          "settings": {
+            "product": "striped-silk-blouse"
+          }
+        },
+        "product_WBCc6V": {
+          "type": "product",
+          "settings": {
+            "product": "striped-skirt-and-top"
+          }
+        },
+        "product_4D8hGh": {
+          "type": "product",
+          "settings": {
+            "product": "white-cotton-shirt"
+          }
+        },
+        "product_w8T4g8": {
+          "type": "product",
+          "settings": {
+            "product": "yellow-wool-jumper"
+          }
+        },
+        "product_yKnTQP": {
+          "type": "product",
+          "settings": {
+            "product": "zipped-jacket"
+          }
+        }
+      },
+      "block_order": [
+        "product_CkUdYj",
+        "product_fgGnwJ",
+        "product_ztHziy",
+        "product_ein8X6",
+        "product_fYxYwK",
+        "product_tGLiPw",
+        "product_jjzpDc",
+        "product_T47i3U",
+        "product_wqwFdL",
+        "product_QEzwp4",
+        "product_jgMDXb",
+        "product_Dntg6m",
+        "product_m3xgDm",
+        "product_ndEBiV",
+        "product_F7gEYH",
+        "product_BJaR6g",
+        "product_WBCc6V",
+        "product_4D8hGh",
+        "product_w8T4g8",
+        "product_yKnTQP"
+      ],
+      "name": "Product Modal",
+      "settings": {}
     }
   },
   "order": [
@@ -203,6 +352,7 @@
     "top_bar_7e4pjG",
     "gift_guide_VJRALP",
     "product_grid_ABC123",
-    "mobile_menu_CdHEfj"
+    "mobile_menu_CdHEfj",
+    "product_modal_a3YEza"
   ]
 }
