@@ -58,6 +58,25 @@
         "button_text": "Choose Gift",
         "button_link": "shopify://collections/all"
       }
+    },
+    "product_modal_DjXVcQ": {
+      "type": "product-modal",
+      "blocks": {
+        "product_m3MRAK": {
+          "type": "product",
+          "settings": {
+            "image": "shopify://shop_images/young-man-in-bright-fashion_925x_b3b7ebd6-c91f-496a-a516-45403497ea25.jpg",
+            "title": "Product Title Demo",
+            "price": "$99.00",
+            "description": "Short description. Demo"
+          }
+        }
+      },
+      "block_order": [
+        "product_m3MRAK"
+      ],
+      "name": "Product Modal",
+      "settings": {}
     }
   },
   "order": [
@@ -65,6 +84,7 @@
     "top_bar_7e4pjG",
     "gift_guide_VJRALP",
     "product_grid_ABC123",
-    "mobile_menu_CdHEfj"
+    "mobile_menu_CdHEfj",
+    "product_modal_DjXVcQ"
   ]
 }
