@@ -1,0 +1,140 @@
+<div class="mobile-menu-overlay" id="mobileMenu">
+    <div class="mobile-menu-header">
+        <div class="logo">{{ section.settings.logo_text }}</div>
+        <button class="mobile-menu-close" id="closeMenuBtn" aria-label="Close Menu">&times;</button>
+        <div class="mobile-menu-content">
+            <div class="mobile-menu-tagline">{{ section.settings.tagline }}</div>
+            <a href="{{ section.sttings.button_link }}" class="mobile-menu-cta" id="mobileCta">
+                {{ section.settings.button_text }}
+            </a>
+        </div>
+    </div>
+</div>
+
+<style>
+    .mobile-menu-overlay{
+        position:fixed;
+        top:0;
+        left:0;
+        right:0;
+        height:auto;
+        max-height:400px;
+        background:rgba(245,245,245,98);
+        display:none;
+        flex-direction:column;
+        z-index:2000;
+        opacity:0;
+        transition:opacity 0.3s;
+        border-bottom:1px solid rgba(0,0,0,.1);
+    }
+    .mobile-menu-overlay.active{
+        display:flex;
+        opacity:1;
+    }
+    .mobile-menu-header{
+        display:flex;
+        justify-content:space-between;
+        align-items:center;
+        padding:20px 30px;
+        background:#fff;
+        box-shadow:0 2px 10px rgba(0,0,0,.1);
+        min-height:70px;
+    }
+    .mobile-menu-header .logo{
+        color:#333;
+        font-size:24px;
+        font-weight:bold;
+        text-transform:uppercase;
+        letter-spacing:2px
+    }
+    .mobile-menu-close{
+        background:0;
+        border:0;
+        color:#333;
+        font-size:30px;
+        cursor:pointer;
+        padding:5px;
+        line-height:1;
+        font-weight:300
+    }
+    .mobile-menu-content{
+        display:flex;
+        flex-direction:column;
+        justify-content:center;
+        align-items:center;
+        padding:40px 40px 50px;
+        text-align:center;
+        background:rgba(245,,245,245,.98)
+    }
+    .mobile-menu-tagline{
+        color:#333;
+        font-size:20px;
+        margin-bottom:40px;
+        max-width:350px;
+        line-height:1.4
+    }
+    .mobile-buttton-cta{
+        background:#ffeb3b;
+        color:#333;
+        padding:18px 60px;
+        text-decoration:none;
+        font-weight:bold;
+        text-transform:uppercase;
+        border-radius:0;
+        transition: .3s;
+        display:inline-flex;
+        align-items:center;
+        gap:15px;
+        font-size:16px;
+        letter-spacing:1px;
+        min-width:280px;
+        justify-content:center
+    }
+    .mobile-menu-cta:hover{
+        background:#fdd835;
+        transform:translateY(-2px)
+    }
+    .mobile-menu-cta:after{
+        content:"->";
+        font-size:18px;
+        font-weight:bold
+    }
+    @media(min-width:769px){
+        .mobile-menu-overlay{display:none!important}
+    }
+</style>
+
+<script>
+    document.addEventListener('DOMContentLoaded',()=>{
+        const menuBtn=document.getElementById('menuBtn');
+        const mobileMenu=document.getElementById('mobileMenu');
+        const closeBtn=document.getElementById('closeMenuBtn');
+        const mobileCta=document.getElementById('mobileCta');
+
+        function openMobile(){
+            mobileMenu.classList.add('active');
+            menuBtn?.classList.add('active');
+            document.body.style.overflow='hidden'
+        }
+        function closeMobile(){
+            mobileMenu.classList.remove('active');
+            menuBtn?.classList.remove('active');
+            document.body.style.overflow='auto'
+        }
+        menuBtn?.addEventListener('click',()=>mobileMenu.classList.contains('active')?closeMobile():openMobile());
+        closeBtn?.addEventListener('click',closeMobile);
+        mobileCta?.addEventListener('click',()=>closeMobile());
+        window.addEventListener('resize',()=>{if(innerWidth>768) closeMobile();});
+    });
+</script>
+
+{% schema %}{
+    "name":"Mobile Menu",
+    "settings":[
+        {"type":"text","id":"logo_text","label":"Logo Text","default":"TISSO VISON"},
+        {"type":"text","id":"tagline","label":"Tagline","default":"Find Gift for your loved ones."},
+        {"type":"text","id":"button_text","label":"Button Text","default":"Choose Gift"},
+        {"type":"url","id":"button_link","label":"Button Link","default":"/collections/all"}
+    ],
+    "presets":[{"name":"Mobile Menu"}]
+}{% endschema %}
