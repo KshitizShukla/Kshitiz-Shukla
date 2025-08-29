@@ -36,11 +36,23 @@
         "side_image": "shopify://shop_images/Frame_1.png",
         "bottom_text": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL"
       }
+    },
+    "product_grid_ABC123": {
+      "type": "product-grid",
+      "settings": {
+        "product_image_00": "",
+        "product_image_01": "",
+        "product_image_02": "",
+        "product_image_03": "",
+        "product_image_04": "",
+        "product_image_05": ""
+      }
     }
   },
   "order": [
     "main",
     "top_bar_7e4pjG",
-    "gift_guide_VJRALP"
+    "gift_guide_VJRALP",
+    "product_grid_ABC123"
   ]
 }
