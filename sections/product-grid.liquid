@@ -1,7 +1,7 @@
 <section id="products" class="product-section">
   <div class="container">
     {% if section.settings.heading != blank %}
-      <h2 class="product-heading">{{ section.settings.heading }}</h2>
+      <h3 class="product-heading">{{ section.settings.heading }}</h3>
     {% endif %}
 
     <div class="product-grid">
@@ -34,7 +34,7 @@
   margin: 0 auto;
   padding: 0 20px;
 }
-.product-heading{font-size:20px;margin:0 0 16px}
+.product-heading{margin:0 0 16px}
 .product-section{padding:60px 40px;background:#fff}
 .product-grid{
   display:grid;
