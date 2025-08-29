@@ -1,5 +1,6 @@
 <section id="products" class="product-section">
     <div class="container">
+        <h2 class="section-title">{{ section.settings.section_title | default: "Tisso vision in the wild" }}</h2>
         <div class="product-grid">
             <div class="product-card fade-in" onclick="openModal(0)">
                 <div class="product-image">
@@ -58,6 +59,13 @@
         padding:60px 0;
         background:#fff
     }
+    .section-title{
+        font-size:24px;
+        font-weight:400;
+        color:#333;
+        margin-bottom:40px;
+        text-align:left
+    }
     .product-grid{
         display:grid;
         grid-template-columns:repeat(3,1fr);
@@ -99,18 +107,18 @@
     }
    .product-plus-icon{
         position:absolute;
-        top:50%;
-        left:50%;
+        top:40%;
+        left:60%;
         transform:translate(-50%,-50%);
-        width:50px;
-        height:50px;
-        background:rgba(255,255,255,.9);
-        border:2px solid #333;
+        width:30px;
+        height:30px;
+        background:rgba(255,255,255,.95);
+        border:1px solid #333;
         border-radius:50%;
         display:flex;
         align-items:center;
         justify-content:center;
-        font-size:24px;
+        font-size:16px;
         font-weight:bold;
         color:#333;
         transition: 0.3s;
@@ -167,6 +175,7 @@
 {% schema %}{
     "name":"Product Grid",
     "settings": [
+        { "type": "text", "id": "section_title", "label": "Section Title", "default": "Tisso vision in the wild" },
         { "type": "image_picker", "id": "product_image_00", "label": "Product 00" },
         { "type": "image_picker", "id": "product_image_01", "label": "Product 01" },
         { "type": "image_picker", "id": "product_image_02", "label": "Product 02" },
