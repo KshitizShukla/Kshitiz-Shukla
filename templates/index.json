@@ -200,7 +200,7 @@
     "product_modal_DjXVcQ": {
       "type": "product-modal",
       "blocks": {
-        "product_m3MRAK": {
+        "product_xyrmdy": {
           "type": "product",
           "settings": {
             "product": "black-leather-bag"
@@ -208,7 +208,7 @@
         }
       },
       "block_order": [
-        "product_m3MRAK"
+        "product_xyrmdy"
       ],
       "name": "Product Modal",
       "settings": {}
