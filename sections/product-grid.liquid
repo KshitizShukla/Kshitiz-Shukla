@@ -32,7 +32,7 @@
 .product-grid {
   display: grid;
   gap: 20px;
-  grid-template-columns: repeat(3,1fr);
+  grid-template-columns: repeat(3, 1fr); /* ✅ desktop: 3 per row */
 }
 
 .product-card {
@@ -46,10 +46,10 @@
 }
 .product-card:hover {transform: translateY(-5px);}
 
-/* ✅ fix aspect ratio here */
+/* ✅ Give cards a fixed aspect ratio (rectangular, not 1:1) */
 .product-image {
   width: 100%;
-  aspect-ratio: 3 / 4;   /* <-- card always 3:4 instead of 1:1 */
+  aspect-ratio: 2 / 3;  /* <-- this makes cards taller (1:2 feel) */
   position: relative;
   display: flex;
   align-items: center;
@@ -61,7 +61,7 @@
 .product-image img {
   width: 100%;
   height: 100%;
-  object-fit: cover;  /* keeps proportions but crops nicely */
+  object-fit: cover; /* fill without stretching */
   transition: transform .3s;
 }
 .product-card:hover .product-image img {transform: scale(1.05);}
@@ -82,13 +82,13 @@
 .product-card:hover .product-plus-icon {transform: translate(-50%,-50%) scale(1.1);}
 .product-plus-icon:hover {background:#333; color:#fff;}
 
-/* responsive */
+/* ✅ responsive */
 @media (max-width:768px){
-  .product-grid {grid-template-columns: repeat(2,1fr);} /* ✅ 2 per row on mobile */
-  .product-heading {text-align: center;}
+  .product-grid {grid-template-columns: repeat(2, 1fr);} /* ✅ 2 products per row */
+  .product-heading {text-align:center;}
 }
 @media (max-width:480px){
-  .product-grid {grid-template-columns: 1fr;} /* ✅ 1 per row tiny screens */
+  .product-grid {grid-template-columns: 1fr;} /* ✅ 1 per row tiny phones */
 }
 @media (max-width:1024px) and (min-width:769px){
   .product-grid {grid-template-columns: repeat(2,1fr);}
