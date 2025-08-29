@@ -1,0 +1,136 @@
+<!-- PRODUCT MODAL SECTION -->
+<div class="modal-overlay" id="productModal" aria-hidden="true">
+  <div class="modal-content" role="dialog" aria-modal="true">
+    <button class="modal-close" id="modalCloseBtn" aria-label="Close Modal">&times;</button>
+    <div class="modal-product">
+      <div class="modal-image"><img id="modalImage" src="" alt=""></div>
+      <div class="modal-details">
+        <h2 class="modal-title" id="modalTitle"></h2>
+        <div class="modal-price" id="modalPrice"></div>
+        <p class="modal-description" id="modalDescription"></p>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">Color</h3>
+          <div class="color-options">
+            <button class="color-option red active" onclick="selectColor(0)">Red</button>
+            <button class="color-option grey" onclick="selectColor(1)">Grey</button>
+          </div>
+        </div>
+
+        <div class="modal-section">
+          <h3 class="modal-section-title">Size</h3>
+          <div class="size-selector">
+            <select class="size-dropdown" id="sizeSelect">
+              <option value="">Choose your size</option>
+              <option value="xs">XS</option><option value="s">S</option>
+              <option value="m">M</option><option value="l">L</option>
+              <option value="xl">XL</option><option value="xxl">XXL</option>
+            </select>
+          </div>
+        </div>
+
+        <button class="add-to-cart" onclick="addToCart()">Add to Cart</button>
+        <div class="modal-frame">Frame 1000009754</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+.modal-overlay{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:.3s}
+.modal-overlay.active{opacity:1;visibility:visible}
+.modal-content{background:#fff;border-radius:8px;max-width:600px;width:90%;max-height:90vh;overflow-y:auto;position:relative;transform:translateY(30px);transition:transform .3s}
+.modal-overlay.active .modal-content{transform:translateY(0)}
+.modal-close{position:absolute;top:20px;right:20px;background:0;border:0;font-size:24px;cursor:pointer;color:#666;padding:5px;line-height:1}
+.modal-product{display:flex;flex-wrap:wrap;gap:0}
+.modal-image{flex:1;min-width:250px}
+.modal-image img{width:100%;height:300px;object-fit:cover;border-radius:8px 0 0 8px}
+.modal-details{flex:1;min-width:280px;padding:30px}
+.modal-title{font-size:24px;font-weight:bold;margin-bottom:15px;color:#333}
+.modal-price{font-size:28px;font-weight:bold;color:#333;margin-bottom:20px}
+.modal-description{font-size:16px;color:#666;line-height:1.6;margin-bottom:30px}
+.modal-section{margin-bottom:25px}
+.modal-section-title{font-size:18px;font-weight:600;color:#333;margin-bottom:10px}
+.color-options{display:flex;gap:0;border:1px solid #ddd;border-radius:4px;overflow:hidden}
+.color-option{flex:1;padding:12px 20px;text-align:center;background:#fff;border:0;cursor:pointer;font-size:16px;transition:background-color .3s}
+.color-option.red{background:#f5f5f5;border-right:1px solid #ddd}
+.color-option.active{background:#333;color:#fff}
+.size-dropdown{width:100%;padding:12px 16px;border:1px solid #ddd;border-radius:4px;font-size:16px;background:#fff;appearance:none;background-image:url('data:image/svg+xml;charset=US-ASCII,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 4 5"><path fill="%23333" d="M2 0L0 2h4zm0 5L0 3h4z"/></svg>');background-repeat:no-repeat;background-position:right 12px center;background-size:12px}
+.size-dropdown:focus{outline:0;border-color:#333}
+.add-to-cart{width:100%;background:#333;color:#fff;border:0;padding:16px 24px;font-size:16px;font-weight:bold;text-transform:uppercase;cursor:pointer;border-radius:4px;transition:background-color .3s;display:flex;align-items:center;justify-content:center;gap:10px}
+.add-to-cart:hover{background:#555}
+.add-to-cart::after{content:"→";font-size:18px}
+.modal-frame{position:absolute;bottom:10px;left:30px;font-size:12px;color:#999}
+@media (max-width:768px){
+  .modal-content{width:95%;margin:20px}
+  .modal-product{flex-direction:column}
+  .modal-image img{border-radius:8px 8px 0 0;height:250px}
+  .modal-details{padding:20px}
+  .modal-title{font-size:20px}
+  .modal-price{font-size:24px}
+}
+</style>
+
+<script>
+/* Build productData from blocks so openModal(index) works with your grid */
+window.productData = [
+  {% for block in section.blocks %}
+  {
+    title: {{ block.settings.title | json }},
+    price: {{ block.settings.price | json }},
+    description: {{ block.settings.description | json }},
+    image: {{ block.settings.image | image_url: width: 800 | json }}
+  }{% unless forloop.last %},{% endunless %}
+  {% endfor %}
+];
+
+const productModal=document.getElementById('productModal');
+const modalCloseBtn=document.getElementById('modalCloseBtn');
+
+window.openModal = function(i){
+  const p = window.productData[i];
+  if(!p) return;
+  document.getElementById('modalTitle').textContent = p.title || '';
+  document.getElementById('modalPrice').textContent = p.price || '';
+  document.getElementById('modalDescription').textContent = p.description || '';
+  document.getElementById('modalImage').src = p.image || '';
+  productModal.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal(){productModal.classList.remove('active');document.body.style.overflow='auto'}
+modalCloseBtn?.addEventListener('click',closeModal);
+productModal?.addEventListener('click',e=>{ if(e.target===productModal) closeModal(); });
+document.addEventListener('keydown',e=>{ if(e.key==='Escape') closeModal(); });
+
+window.selectColor = function(idx){
+  document.querySelectorAll('.color-option').forEach((b,i)=>b.classList.toggle('active', i===idx));
+}
+window.addToCart = function(){
+  const size = document.getElementById('sizeSelect').value;
+  const color = (document.querySelector('.color-option.active')||{}).textContent||'';
+  if(!size){ alert('Please select a size first!'); return; }
+  alert('Added to cart!\nColor: '+color+'\nSize: '+size.toUpperCase());
+}
+</script>
+
+{% schema %}
+{
+  "name": "Product Modal",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Modal Product",
+      "settings": [
+        { "type": "image_picker", "id": "image", "label": "Image" },
+        { "type": "text", "id": "title", "label": "Title", "default": "Product Title" },
+        { "type": "text", "id": "price", "label": "Price", "default": "$99.00" },
+        { "type": "textarea", "id": "description", "label": "Description", "default": "Short description." }
+      ]
+    }
+  ],
+  "max_blocks": 12,
+  "presets": [{ "name": "Product Modal" }]
+}
+{% endschema %}
