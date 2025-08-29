@@ -4,15 +4,14 @@
     <button class="pg-modal__close" id="pgClose" aria-label="Close">&times;</button>
 
     <div class="pg-modal__product">
-      <!-- Row 1: image + info -->
-      <div class="pg-modal__image"><img id="pgImg" src="" alt=""></div>
+      <!-- row 1 -->
+      <div class="pg-modal__image"><img id="pgImg" alt=""></div>
       <div class="pg-modal__info">
         <h2 id="pgTitle"></h2>
         <div id="pgPrice" class="pg-price"></div>
         <p id="pgDesc" class="pg-desc"></p>
       </div>
-
-      <!-- Row 2: options + CTA -->
+      <!-- row 2 -->
       <div class="pg-modal__opts">
         <div class="pg-section" id="pgColorWrap" style="display:none;">
           <div class="pg-label">Color</div>
@@ -35,52 +34,43 @@
   </div>
 </div>
 
-<!-- Lightbox for image zoom -->
+<!-- lightbox -->
 <div class="pg-lightbox" id="pgLightbox" aria-hidden="true">
   <img id="pgLightboxImg" alt="">
 </div>
 
 <style>
-/* Overlay + shell */
 .pg-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:.3s}
 .pg-modal.active{opacity:1;visibility:visible}
 .pg-modal__content{background:#fff;border-radius:8px;max-width:540px;width:92%;max-height:90vh;overflow:auto;position:relative;transform:translateY(28px);transition:transform .3s;padding:8px 0}
 .pg-modal.active .pg-modal__content{transform:translateY(0)}
 .pg-modal__close{position:absolute;top:12px;right:14px;background:none;border:0;font-size:24px;cursor:pointer}
 
-/* Grid: row1 image+info, row2 options full width */
 .pg-modal__product{
-  --seg-accent:#111; /* divider color between color pills; JS updates */
+  --seg-accent:#111;
   display:grid;
   grid-template-columns:120px 1fr;
-  grid-template-areas:
-    "img info"
-    "opts opts";
-  align-items:start;
-  gap:14px;
-  padding:14px 18px 18px;
+  grid-template-areas:"img info" "opts opts";
+  align-items:start; gap:14px; padding:14px 18px 18px;
 }
 .pg-modal__image{grid-area:img;align-self:stretch}
 .pg-modal__image img{width:120px;height:100%;min-height:120px;object-fit:cover;border-radius:2px;cursor:zoom-in}
 .pg-modal__info{grid-area:info}
 .pg-modal__opts{grid-area:opts;position:relative}
 
-/* Typography */
 #pgTitle{font-size:20px;line-height:1.2;font-weight:600;margin:0 0 6px}
 .pg-price{font-size:20px;font-weight:700;margin:0 0 8px}
 .pg-desc{font-size:14px;color:#333;line-height:1.45;margin:0 0 10px;max-width:420px}
-
-/* Labels */
 .pg-label{font-size:14px;font-weight:600;color:#333;margin:12px 0 6px}
 
-/* Color segmented control with center bar */
+/* color pills + center divider */
 .pg-colors{display:flex;border:1px solid #111;border-radius:2px;overflow:hidden;position:relative}
 .pg-colors::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;transform:translateX(-50%);background:var(--seg-accent)}
-.pg-color-btn{flex:1;padding:10px 14px;background:#fff;border:0;cursor:pointer;font-size:16px;color:#111}
-.pg-color-btn:first-child{border-right:1px solid transparent}
+.pg-color-btn{position:relative;flex:1;padding:10px 14px;background:#eee;border:0;cursor:pointer;font-size:16px;color:#111}
+.pg-color-btn::before{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--swatch,#111)}
 .pg-color-btn.active{background:#000;color:#fff}
 
-/* Size select with square chevron box */
+/* size */
 .pg-size-row{position:relative}
 .pg-select{width:100%;padding:12px 48px 12px 14px;font-size:16px;border:1px solid #111;border-radius:2px;appearance:none;background:#fff}
 .pg-size-row::after{content:"";position:absolute;top:0;right:0;width:48px;height:100%;border-left:1px solid #111;background:#fff}
@@ -90,37 +80,22 @@
 .pg-add{margin-top:14px;width:100%;padding:14px 16px;border-radius:0;background:#000;color:#fff;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer}
 .pg-add:hover{background:#111}
 .pg-add span{font-size:18px}
-
-/* Footer tiny text */
 .pg-frame{position:absolute;bottom:10px;left:18px;color:#999;font-size:11px}
 
-/* Lightbox */
+/* lightbox */
 .pg-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1100}
 .pg-lightbox.active{display:flex}
 .pg-lightbox img{max-width:90vw;max-height:90vh;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.4);cursor:zoom-out}
 
-/* Mobile */
+/* mobile */
 @media(max-width:540px){
-  .pg-modal__product{
-    grid-template-columns:1fr;
-    grid-template-areas:
-      "img"
-      "info"
-      "opts";
-  }
+  .pg-modal__product{grid-template-columns:1fr;grid-template-areas:"img" "info" "opts"}
   .pg-modal__image img{width:100%;height:220px;border-radius:6px 6px 0 0}
-}
-.pg-color-btn{position:relative}
-.pg-color-btn::before{
-  content:""; position:absolute; left:0; top:0; bottom:0; width:10px;
-  background:var(--swatch, #111); /* set from JS per option */
 }
 </style>
 
 <script>
-/* ===== Product Modal JS =====
-   Requires window.pgProducts (array) to be defined by Liquid blocks.
-*/
+/* ===== Product Modal JS (handle-based opener) ===== */
 (function(){
   const modal = document.getElementById('pgModal');
   const closeBtn = document.getElementById('pgClose');
@@ -134,55 +109,39 @@
   const variantSel = document.getElementById('pgVariant');
   const addBtn = document.getElementById('pgAdd');
 
-  // Lightbox
   const lightbox = document.getElementById('pgLightbox');
   const lightboxImg = document.getElementById('pgLightboxImg');
   const imgWrapper = document.querySelector('.pg-modal__image');
 
-  let current = null, selectedColor = null, colorIndex = -1, sizeIndex = -1;
+  let current=null, selectedColor=null, colorIndex=-1, sizeIndex=-1;
 
-  // Map common color names to CSS colors (fallback to raw name)
   function cssColorFrom(name){
     const n=(name||'').trim().toLowerCase();
-    const map={
-      black:'#000', white:'#fff', red:'#d00', blue:'#17c', green:'#2a7',
-      grey:'#666', gray:'#666', brown:'#6b4b3e', beige:'#d9c9a3',
-      pink:'#e77', purple:'#7a4cbb', orange:'#f78a1d', yellow:'#ffcf33'
-    };
-    return map[n] || n || '#111';
+    const map={black:'#000',white:'#fff',red:'#d00',blue:'#17c',green:'#2a7',grey:'#666',gray:'#666',brown:'#6b4b3e',beige:'#d9c9a3',pink:'#e77',purple:'#7a4cbb',orange:'#f78a1d',yellow:'#ffcf33'};
+    return map[n]||n||'#111';
   }
 
   function renderColors(p){
     colorsEl.innerHTML='';
-    colorIndex = (p.options||[]).findIndex(o=>/color/i.test(o));
-    if(colorIndex === -1){ colorWrap.style.display='none'; selectedColor=null; return; }
+    colorIndex=(p.options||[]).findIndex(o=>/color/i.test(o));
+    if(colorIndex===-1){ colorWrap.style.display='none'; selectedColor=null; return; }
 
-    const set = new Set((p.variants||[]).map(v=>v['option'+(colorIndex+1)]).filter(Boolean));
-    const values=[...set];
-    colorWrap.style.display = values.length ? 'block' : 'none';
-    selectedColor = values[0] || null;
+    const values=[...new Set((p.variants||[]).map(v=>v['option'+(colorIndex+1)]).filter(Boolean))];
+    colorWrap.style.display = values.length?'block':'none';
+    selectedColor = values[0]||null;
 
-    // Center divider adopts active color
-    modal.querySelector('.pg-modal__product')
-         .style.setProperty('--seg-accent', cssColorFrom(selectedColor));
+    modal.querySelector('.pg-modal__product').style.setProperty('--seg-accent', cssColorFrom(selectedColor));
 
     values.forEach(val=>{
       const b=document.createElement('button');
       b.type='button';
       b.className='pg-color-btn'+(val===selectedColor?' active':'');
       b.textContent=val;
-
-      // Left swatch strip color (CSS variable used by ::before)
-      b.style.setProperty('--swatch', cssColorFrom(val));
-
+      b.style.setProperty('--swatch', cssColorFrom(val)); // left strip
       b.addEventListener('click',()=>{
         selectedColor=val;
-        document.querySelectorAll('.pg-color-btn')
-          .forEach(x=>x.classList.toggle('active',x===b));
-
-        modal.querySelector('.pg-modal__product')
-             .style.setProperty('--seg-accent', cssColorFrom(selectedColor));
-
+        document.querySelectorAll('.pg-color-btn').forEach(x=>x.classList.toggle('active',x===b));
+        modal.querySelector('.pg-modal__product').style.setProperty('--seg-accent', cssColorFrom(selectedColor));
         renderSizes(p);
       });
       colorsEl.appendChild(b);
@@ -190,110 +149,88 @@
   }
 
   function renderSizes(p){
-    variantSel.innerHTML = '<option value="">Choose your size</option>';
-    sizeIndex = (p.options||[]).findIndex(o=>/size/i.test(o));
-
-    // Filter variants by selected color (if any)
-    let pool = p.variants||[];
-    if(colorIndex>-1 && selectedColor){
-      pool = pool.filter(v=>v['option'+(colorIndex+1)]===selectedColor);
-    }
-
-    const hasSize = sizeIndex > -1;
-    sizeWrap.style.display = hasSize ? 'block' : 'none';
+    variantSel.innerHTML='<option value="">Choose your size</option>';
+    sizeIndex=(p.options||[]).findIndex(o=>/size/i.test(o));
+    let pool=p.variants||[];
+    if(colorIndex>-1 && selectedColor){ pool=pool.filter(v=>v['option'+(colorIndex+1)]===selectedColor); }
+    const hasSize=sizeIndex>-1;
+    sizeWrap.style.display = hasSize?'block':'none';
 
     if(hasSize){
-      const keyName = 'option'+(sizeIndex+1);
-      const bySize = new Map();
+      const key='option'+(sizeIndex+1);
+      const bySize=new Map();
       pool.forEach(v=>{
-        const key = v[keyName] || v.title;
-        if(!bySize.has(key)) bySize.set(key, v);
-        else if(!bySize.get(key).available && v.available) bySize.set(key, v);
+        const k=v[key]||v.title;
+        if(!bySize.has(k)) bySize.set(k,v);
+        else if(!bySize.get(k).available && v.available) bySize.set(k,v);
       });
       [...bySize.entries()].forEach(([name,v])=>{
         const opt=document.createElement('option');
         opt.value=v.id;
-        opt.textContent = name + ' — ' + v.price_html + (v.available?'':' (Sold out)');
+        opt.textContent = name+' — '+v.price_html+(v.available?'':' (Sold out)');
         opt.disabled=!v.available;
         variantSel.appendChild(opt);
       });
     } else {
-      const first = pool.find(v=>v.available) || pool[0];
+      const first=pool.find(v=>v.available)||pool[0];
       if(first){
         const opt=document.createElement('option');
-        opt.value=first.id;
-        opt.textContent=first.title;
-        variantSel.appendChild(opt);
-        variantSel.value = first.id;
+        opt.value=first.id; opt.textContent=first.title; variantSel.appendChild(opt);
+        variantSel.value=first.id;
       }
     }
   }
 
-  // Public API: call openModal(index) from your product grid
-  window.openModal = function(i){
-    const p = (window.pgProducts||[])[i];
-    if(!p) return;
-
-    current = p;
-    img.src = p.image || '';
-    img.alt = p.image_alt || p.title || '';
-    title.textContent = p.title || '';
-    price.textContent = p.price_varies ? ('From ' + (p.price_min_html||'')) : (p.price_html||'');
-    desc.textContent = p.description || '';
-
-    renderColors(p);
-    renderSizes(p);
-
-    modal.classList.add('active');
-    document.body.style.overflow='hidden';
+  // Open by INDEX (kept for compatibility, now with guard)
+  window.openModal=function(i){
+    const list=window.pgProducts||[];
+    if(!list.length){ alert('No products connected to Product Modal section.'); return; }
+    const p=list[i];
+    if(!p){ alert('No product at index '+i+'. Ensure grid and modal blocks align.'); return; }
+    fillAndShow(p);
   };
 
-  function closeModal(){
-    modal.classList.remove('active');
-    document.body.style.overflow='auto';
+  // Open by HANDLE (preferred)
+  window.openProduct=function(handle){
+    const list=window.pgProducts||[];
+    if(!list.length){ alert('No products connected to Product Modal section.'); return; }
+    const idx=list.findIndex(p=>p.handle===handle);
+    if(idx===-1){ alert('Selected product not connected to modal section.'); return; }
+    fillAndShow(list[idx]);
+  };
+
+  function fillAndShow(p){
+    current=p;
+    img.src=p.image||''; img.alt=p.image_alt||p.title||'';
+    title.textContent=p.title||'';
+    price.textContent=p.price_varies?('From '+(p.price_min_html||'')):(p.price_html||'');
+    desc.textContent=p.description||'';
+    renderColors(p); renderSizes(p);
+    modal.classList.add('active'); document.body.style.overflow='hidden';
   }
 
-  // Events
-  closeBtn?.addEventListener('click', closeModal);
-  modal.addEventListener('click', e=>{ if(e.target===modal) closeModal(); });
-  document.addEventListener('keydown', e=>{
-    if(e.key==='Escape'){
-      closeModal();
-      lightbox.classList.remove('active');
-    }
-  });
+  function closeModal(){ modal.classList.remove('active'); document.body.style.overflow='auto'; }
+  closeBtn?.addEventListener('click',closeModal);
+  modal.addEventListener('click',e=>{ if(e.target===modal) closeModal(); });
+  document.addEventListener('keydown',e=>{ if(e.key==='Escape'){ closeModal(); lightbox.classList.remove('active'); } });
 
-  addBtn.addEventListener('click', async ()=>{
+  addBtn.addEventListener('click',async ()=>{
     if(!current) return;
-
-    let variantId = variantSel.value ? Number(variantSel.value)
+    let variantId = variantSel.value
+      ? Number(variantSel.value)
       : Number((current.variants||[]).find(v=>v.available)?.id || current.variants?.[0]?.id || 0);
-
     if(!variantId){ alert('This product is unavailable.'); return; }
-
     try{
-      await fetch('/cart/add.js', {
-        method:'POST',
-        headers:{'Content-Type':'application/json','Accept':'application/json'},
-        body:JSON.stringify({id:variantId, quantity:1})
-      });
-      alert('Added to cart!');
-      closeModal();
-    }catch(e){
-      alert('Could not add to cart.');
-    }
+      await fetch('/cart/add.js',{method:'POST',headers:{'Content-Type':'application/json','Accept':'application/json'},body:JSON.stringify({id:variantId,quantity:1})});
+      alert('Added to cart!'); closeModal();
+    }catch{ alert('Could not add to cart.'); }
   });
 
-  // Lightbox (click image to expand)
-  imgWrapper?.addEventListener('click', ()=>{
-    if(!img.src) return;
-    lightboxImg.src = img.src;
-    lightbox.classList.add('active');
-  });
-  lightbox.addEventListener('click', ()=> lightbox.classList.remove('active'));
+  // lightbox
+  imgWrapper?.addEventListener('click',()=>{ if(!img.src) return; lightboxImg.src=img.src; lightbox.classList.add('active'); });
+  lightbox.addEventListener('click',()=> lightbox.classList.remove('active'));
 })();
 </script>
-
 
 {% schema %}
 {
@@ -312,3 +249,33 @@
   "presets": [{ "name": "Product Modal" }]
 }
 {% endschema %}
+
+{% comment %}
+Build the JS dataset with product handles.
+{% endcomment %}
+<script>
+window.pgProducts = [
+  {% for block in section.blocks %}
+    {% assign p = block.settings.product %}
+    {% if p %}
+    {
+      id: {{ p.id | json }},
+      handle: {{ p.handle | json }},
+      title: {{ p.title | json }},
+      description: {{ p.description | strip_html | json }},
+      price_html: {{ p.price | money | json }},
+      price_min_html: {{ p.price_min | money | json }},
+      price_varies: {{ p.price_varies | json }},
+      image: {{ p.featured_image | image_url: width: 900 | json }},
+      image_alt: {{ p.featured_image.alt | default: p.title | json }},
+      options: {{ p.options | json }},
+      variants: [
+        {% for v in p.variants %}
+        { id: {{ v.id | json }}, title: {{ v.title | json }}, available: {{ v.available | json }}, price_html: {{ v.price | money | json }}, option1: {{ v.option1 | json }}, option2: {{ v.option2 | json }}, option3: {{ v.option3 | json }} }{% unless forloop.last %},{% endunless %}
+        {% endfor %}
+      ]
+    }{% unless forloop.last %},{% endunless %}
+    {% endif %}
+  {% endfor %}
+];
+</script>
