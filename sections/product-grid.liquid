@@ -31,7 +31,11 @@
 <style>
 .product-heading{font-size:20px;margin:0 0 16px}
 .product-section{padding:60px 0;background:#fff}
-.product-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:20px}
+.product-grid{
+  display:grid;
+  gap:20px;
+  grid-template-columns:repeat(3,1fr) !important;
+}
 .product-card{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .3s;cursor:pointer}
 .product-card:hover{transform:translateY(-5px)}
 .product-image{width:100%;height:auto;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f5f5f5}
@@ -39,6 +43,12 @@
 .product-card:hover .product-image img{transform:scale(1.05)}
 .product-plus-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(255,255,255,.9);border:2px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#333;transition:.3s;z-index:3}
 .product-card:hover .product-plus-icon{transform:translate(-50%,-50%) scale(1.1)}
+@media (max-width:768px){
+  .product-grid{grid-template-columns:repeat(2,1fr);}
+}
+@media (max-width:480px){
+  .product-grid{grid-template-columns:1fr;}
+}
 @media (max-width:768px){.product-grid{grid-template-columns:1fr;gap:15px}}
 @media (max-width:1024px) and (min-width:769px){.product-grid{grid-template-columns:repeat(2,1fr)}}
 .fade-in{opacity:0;transform:translateY(30px);transition:all .6s}
