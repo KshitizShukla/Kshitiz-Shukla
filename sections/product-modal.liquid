@@ -4,17 +4,15 @@
     <button class="pg-modal__close" id="pgClose" aria-label="Close">&times;</button>
 
     <div class="pg-modal__product">
-      <!-- Row 1 col A: image -->
-      <div class="pg-modal__image" aria-hidden="true"><img id="pgImg" src="" alt=""></div>
-
-      <!-- Row 1 col B: info -->
+      <!-- Row 1: image + info -->
+      <div class="pg-modal__image"><img id="pgImg" src="" alt=""></div>
       <div class="pg-modal__info">
         <h2 id="pgTitle"></h2>
         <div id="pgPrice" class="pg-price"></div>
         <p id="pgDesc" class="pg-desc"></p>
       </div>
 
-      <!-- Row 2 (spans both cols): options + add -->
+      <!-- Row 2: options + CTA -->
       <div class="pg-modal__opts">
         <div class="pg-section" id="pgColorWrap" style="display:none;">
           <div class="pg-label">Color</div>
@@ -37,72 +35,71 @@
   </div>
 </div>
 
+<!-- Lightbox for image zoom -->
+<div class="pg-lightbox" id="pgLightbox" aria-hidden="true">
+  <img id="pgLightboxImg" alt="">
+</div>
+
 <style>
 /* Overlay + shell */
 .pg-modal{position:fixed;inset:0;background:rgba(0,0,0,.8);display:flex;align-items:center;justify-content:center;z-index:1000;opacity:0;visibility:hidden;transition:.3s}
 .pg-modal.active{opacity:1;visibility:visible}
-.pg-modal__content{background:#fff;border-radius:8px;max-width:680px;width:92%;max-height:90vh;overflow:auto;position:relative;transform:translateY(28px);transition:transform .3s}
+.pg-modal__content{background:#fff;border-radius:8px;max-width:540px;width:92%;max-height:90vh;overflow:auto;position:relative;transform:translateY(28px);transition:transform .3s;padding:8px 0}
 .pg-modal.active .pg-modal__content{transform:translateY(0)}
 .pg-modal__close{position:absolute;top:12px;right:14px;background:none;border:0;font-size:24px;cursor:pointer}
 
-/* 2-row grid: row1 two columns (img/info), row2 full-width options */
+/* Grid: row1 image+info, row2 options full width */
 .pg-modal__product{
-  --seg-accent:#111; /* color divider default; JS updates to active color */
+  --seg-accent:#111; /* divider color between color pills; JS updates */
   display:grid;
-  grid-template-columns:160px 1fr;
+  grid-template-columns:120px 1fr;
   grid-template-areas:
     "img info"
     "opts opts";
   align-items:start;
-  gap:18px;
-  padding:18px 22px 22px;
+  gap:14px;
+  padding:14px 18px 18px;
 }
-.pg-modal__image{grid-area:img; align-self:stretch}
-.pg-modal__image img{
-  width:100%; height:100%; min-height:140px; object-fit:cover; border-radius:4px;
-}
+.pg-modal__image{grid-area:img;align-self:stretch}
+.pg-modal__image img{width:120px;height:100%;min-height:120px;object-fit:cover;border-radius:2px;cursor:zoom-in}
 .pg-modal__info{grid-area:info}
-.pg-modal__opts{grid-area:opts; position:relative}
+.pg-modal__opts{grid-area:opts;position:relative}
 
 /* Typography */
-#pgTitle{font-size:34px;line-height:1.05;font-weight:800;margin:2px 0 8px}
-.pg-price{font-size:22px;font-weight:700;margin:4px 0 10px}
-.pg-desc{font-size:16px;color:#333;line-height:1.5;margin:0 0 12px}
+#pgTitle{font-size:20px;line-height:1.2;font-weight:600;margin:0 0 6px}
+.pg-price{font-size:20px;font-weight:700;margin:0 0 8px}
+.pg-desc{font-size:14px;color:#333;line-height:1.45;margin:0 0 10px;max-width:420px}
 
 /* Labels */
-.pg-label{font-size:16px;font-weight:600;color:#333;margin:14px 0 8px}
+.pg-label{font-size:14px;font-weight:600;color:#333;margin:12px 0 6px}
 
-/* Color segmented control with center bar using --seg-accent */
+/* Color segmented control with center bar */
 .pg-colors{display:flex;border:1px solid #111;border-radius:2px;overflow:hidden;position:relative}
 .pg-colors::after{content:"";position:absolute;top:0;bottom:0;left:50%;width:3px;transform:translateX(-50%);background:var(--seg-accent)}
-.pg-color-btn{
-  flex:1;padding:14px 18px;background:#fff;border:0;cursor:pointer;font-size:18px;color:#111;
-}
+.pg-color-btn{flex:1;padding:10px 14px;background:#fff;border:0;cursor:pointer;font-size:16px;color:#111}
 .pg-color-btn:first-child{border-right:1px solid transparent}
 .pg-color-btn.active{background:#000;color:#fff}
 
 /* Size select with square chevron box */
 .pg-size-row{position:relative}
-.pg-select{
-  width:100%;padding:16px 56px 16px 16px;font-size:16px;border:1px solid #111;border-radius:2px;appearance:none;background:#fff
-}
-.pg-size-row::after{
-  content:"";position:absolute;top:0;right:0;width:56px;height:100%;border-left:1px solid #111;background:#fff
-}
-.pg-size-row::before{
-  content:"▾";position:absolute;right:18px;top:50%;transform:translateY(-50%);font-size:20px;color:#111;pointer-events:none
-}
+.pg-select{width:100%;padding:12px 48px 12px 14px;font-size:16px;border:1px solid #111;border-radius:2px;appearance:none;background:#fff}
+.pg-size-row::after{content:"";position:absolute;top:0;right:0;width:48px;height:100%;border-left:1px solid #111;background:#fff}
+.pg-size-row::before{content:"▾";position:absolute;right:14px;top:50%;transform:translateY(-50%);font-size:18px;color:#111;pointer-events:none}
 
-/* Add-to-cart bar */
-.pg-add{
-  margin-top:16px;width:100%;padding:18px 20px;border-radius:0;background:#000;color:#fff;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer
-}
+/* CTA */
+.pg-add{margin-top:14px;width:100%;padding:14px 16px;border-radius:0;background:#000;color:#fff;font-weight:800;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:14px;border:0;cursor:pointer}
 .pg-add:hover{background:#111}
 .pg-add span{font-size:18px}
 
 /* Footer tiny text */
-.pg-frame{position:absolute;bottom:10px;left:22px;color:#999;font-size:11px}
+.pg-frame{position:absolute;bottom:10px;left:18px;color:#999;font-size:11px}
 
+/* Lightbox */
+.pg-lightbox{position:fixed;inset:0;background:rgba(0,0,0,.9);display:none;align-items:center;justify-content:center;z-index:1100}
+.pg-lightbox.active{display:flex}
+.pg-lightbox img{max-width:90vw;max-height:90vh;border-radius:6px;box-shadow:0 10px 40px rgba(0,0,0,.4);cursor:zoom-out}
+
+/* Mobile */
 @media(max-width:540px){
   .pg-modal__product{
     grid-template-columns:1fr;
@@ -111,14 +108,12 @@
       "info"
       "opts";
   }
-  .pg-modal__image img{height:220px;border-radius:6px}
-  #pgTitle{font-size:28px}
-  .pg-price{font-size:20px}
+  .pg-modal__image img{width:100%;height:220px;border-radius:6px 6px 0 0}
 }
 </style>
 
 <script>
-/* Build product data from blocks */
+/* Build product dataset from selected blocks */
 window.pgProducts = [
   {% for block in section.blocks %}
     {% assign p = block.settings.product %}
@@ -156,12 +151,16 @@ window.pgProducts = [
   const variantSel = document.getElementById('pgVariant');
   const addBtn = document.getElementById('pgAdd');
 
+  const lightbox = document.getElementById('pgLightbox');
+  const lightboxImg = document.getElementById('pgLightboxImg');
+  const imgWrapper = document.querySelector('.pg-modal__image');
+
   let current=null, selectedColor=null, colorIndex=-1, sizeIndex=-1;
 
-  // helper: best CSS color from a string
+  // map common color names → CSS colors (fallback: raw value)
   function cssColorFrom(name){
     const n=(name||'').trim().toLowerCase();
-    const map={black:'#000', white:'#fff', red:'#d00', blue:'#17c', green:'#2a7', grey:'#666', gray:'#666', brown:'#6b4b3e', beige:'#d9c9a3', pink:'#e77', purple:'#7a4cbb', orange:'#f78a1d', yellow:'#ffcf33'};
+    const map={black:'#000',white:'#fff',red:'#d00',blue:'#17c',green:'#2a7',grey:'#666',gray:'#666',brown:'#6b4b3e',beige:'#d9c9a3',pink:'#e77',purple:'#7a4cbb',orange:'#f78a1d',yellow:'#ffcf33'};
     return map[n] || n || '#111';
   }
 
@@ -175,7 +174,7 @@ window.pgProducts = [
     colorWrap.style.display = values.length ? 'block' : 'none';
     selectedColor = values[0] || null;
 
-    // set divider color
+    // center divider color
     modal.querySelector('.pg-modal__product').style.setProperty('--seg-accent', cssColorFrom(selectedColor));
 
     values.forEach(val=>{
@@ -227,6 +226,7 @@ window.pgProducts = [
     }
   }
 
+  // Public API used by your grid cards
   window.openModal = function(i){
     const p = (window.pgProducts||[])[i]; if(!p) return;
     current = p;
@@ -246,7 +246,7 @@ window.pgProducts = [
   function close(){ modal.classList.remove('active'); document.body.style.overflow='auto'; }
   closeBtn.addEventListener('click', close);
   modal.addEventListener('click', e=>{ if(e.target===modal) close(); });
-  document.addEventListener('keydown', e=>{ if(e.key==='Escape') close(); });
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') { close(); lightbox.classList.remove('active'); } });
 
   addBtn.addEventListener('click', async ()=>{
     if(!current) return;
@@ -259,6 +259,14 @@ window.pgProducts = [
       close();
     }catch{ alert('Could not add to cart.'); }
   });
+
+  /* Click-to-expand image */
+  imgWrapper?.addEventListener('click', () => {
+    if (!img.src) return;
+    lightbox.querySelector('#pgLightboxImg').src = img.src;
+    lightbox.classList.add('active');
+  });
+  lightbox.addEventListener('click', () => lightbox.classList.remove('active'));
 })();
 </script>
 
