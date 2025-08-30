@@ -248,37 +248,29 @@
   }
 
   function renderSizes(p){
-    variantSel.innerHTML='<option value="">Choose your size</option>';
-    sizeIndex=(p.options||[]).findIndex(o=>/size/i.test(o));
-    let pool=p.variants||[];
-    if(colorIndex>-1 && selectedColor){ pool=pool.filter(v=>v['option'+(colorIndex+1)]===selectedColor); }
-    const hasSize=sizeIndex>-1;
-    sizeWrap.style.display = hasSize?'block':'none';
+  variantSel.innerHTML='<option value="">Choose your size</option>';
+  sizeIndex=(p.options||[]).findIndex(o=>/size/i.test(o));
+  let pool=p.variants||[];
+  if(colorIndex>-1 && selectedColor){ pool=pool.filter(v=>v['option'+(colorIndex+1)]===selectedColor); }
+  const hasSize=sizeIndex>-1;
+  sizeWrap.style.display = hasSize?'block':'none';
 
-    if(hasSize){
-      const key='option'+(sizeIndex+1);
-      const bySize=new Map();
-      pool.forEach(v=>{
-        const k=v[key]||v.title;
-        if(!bySize.has(k)) bySize.set(k,v);
-        else if(!bySize.get(k).available && v.available) bySize.set(k,v);
-      });
-      [...bySize.entries()].forEach(([name,v])=>{
-        const opt=document.createElement('option');
-        opt.value=v.id;
-        opt.textContent = name+' — '+v.price_html+(v.available?'':' (Sold out)');
-        opt.disabled=!v.available;
-        variantSel.appendChild(opt);
-      });
-    } else {
-      const first=pool.find(v=>v.available)||pool[0];
-      if(first){
-        const opt=document.createElement('option');
-        opt.value=first.id; opt.textContent=first.title; variantSel.appendChild(opt);
-        variantSel.value=first.id;
-      }
-    }
+  if(hasSize){
+    const key='option'+(sizeIndex+1);
+    const bySize=new Map();
+    pool.forEach(v=>{
+      const k=v[key]||v.title;
+      if(!bySize.has(k)) bySize.set(k,v);
+    });
+    [...bySize.entries()].forEach(([name,v])=>{
+      const opt=document.createElement('option');
+      opt.value=v.id;
+      opt.textContent=name;   // 👈 only size name, no price
+      opt.disabled=!v.available;
+      variantSel.appendChild(opt);
+    });
   }
+}
 
   // Open by INDEX (kept for compatibility, now with guard)
   window.openModal=function(i){
