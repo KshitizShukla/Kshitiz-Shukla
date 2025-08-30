@@ -109,7 +109,9 @@
 /* mobile */
 @media (max-width:768px){
   .hero-mainimage{display:none}
-  .hero-bottom-content{background:url({{section.settings.side_image}}) no-repeat bottom/contain}
+  .hero-bottom-content{
+    background:url('{{ section.settings.side_image | image_url: width: 1000 }}') no-repeat bottom/contain;
+  }
   .hide-mb{display:none!important}
   .hide-dk{display:block}
   .hero-content{flex-direction:column-reverse;min-height:auto}
