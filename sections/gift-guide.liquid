@@ -35,168 +35,100 @@
 </section>
 
 <style>
-/* ================= HERO SECTION ================= */
+/* Hero base */
 .hero-section{
   background:#fff;
   position:relative;
   overflow:hidden;
   min-height:60vh;
-  font-family:'Jost';
+  font-family:'Jost'
 }
-
-/* Content layout */
 .hero-content{
   display:flex;
   align-items:center;
-  width:100%;
+  width:100%
 }
-
 .hero-bottom-text{
   background:#f5f5f5;
   padding:10px 0;
   text-align:center;
   letter-spacing:1pt;
-  color:#000;
+  color:#000000
 }
-
-/* ================= TEXT BLOCK ================= */
+/* text block */
 .hero-bottom-content .hero-text{
   flex:1;
   padding:60px 40px;
   z-index:2;
   max-width:40%;
-  padding-left:10%;
+  padding-left:10%
 }
-
-.hero-title{
-  font-size:48px;
+.hero-title{font-size:48px;
   font-weight:bold;
-  color:#000;
+  color:#000000;
   margin-bottom:20px;
-  line-height:1.2;
+  line-height:1.2
 }
-
 .hero-bottom-content .hero-description{
   font-size:16px;
-  color:#000;
+  color:#000000;
   margin-bottom:30px;
   max-width:400px;
-  letter-spacing:0;
+  letter-spacing:0px
 }
-
-/* ================= BUTTON ================= */
+/* buttons */
 .shop-button{
-  background:#000;
+  background:#333;
   color:#fff;
   padding:15px 30px;
   text-decoration:none;
   font-weight:bold;
   text-transform:uppercase;
   transition:.3s;
-  display:inline-block!important;
+  display:inline-block!important
 }
-.shop-button:hover{ background:#555; }
-.shop-button i{ margin-left:8px; }
-
-/* ================= IMAGE ================= */
+.shop-button:hover{
+  background:#555
+}
+.shop-button i{
+  margin-left:8px
+}
+/* images */
 .hero-bottom-content .hero-image{
   flex:1;
   position:relative;
   max-width:60%;
-  width:100%;
+  width:100%
 }
 .hero-main-image{
   width:100%;
   height:100%;
-  object-fit:contain;
+  object-fit:contain
 }
-
-/* ================= RESPONSIVE ================= */
-
-/* ---- Mobile ---- */
+.hide-dk{
+  display:none!important
+}
+/* mobile */
 @media (max-width:768px){
-  /* Hide the desktop-only main image */
-  .hero-mainimage { display:none !important; }
-
-  .hero-bottom-content {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:20px;
-    position:relative;
+  .hero-mainimage{display:none}
+  .hero-bottom-content{
+    background:url('{{ section.settings.side_image | image_url: width: 1000 }}') no-repeat bottom/contain;
   }
-
-  .hero-bottom-content .hero-text {
-    order:1;
-    padding:0;
-    max-width:100%;
-  }
-
-  .hero-title {
-    font-size:28px;
-    margin-bottom:10px;
-  }
-
-  .hero-bottom-content .hero-description {
-    font-size:14px;
-    margin-bottom:15px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  /* ✅ Force image full-width and big */
-  .hero-bottom-content .hero-image {
-    order:2;
-    position:relative;
-    width:100%;
-    margin-top:0;
-  }
-
-  .hero-bottom-content .hero-image img {
-    display:block !important;
-    width:100%;
-    max-height:340px;   /* adjust as needed */
-    height:auto;
-    object-fit:cover;
-  }
-
-  /* ✅ Button overlay inside image, bottom centered */
-  .hero-bottom-content .hero-image .shop-button {
-    position:absolute;
-    bottom:15px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:2;
-    background:#000;
-    color:#fff;
-    padding:12px 24px;
-    font-size:14px;
-    font-weight:600;
-    text-transform:uppercase;
-  }
-
-  /* Hide duplicate button for mobile */
-  .hide-mb{display:none!important;}
-  .hide-dk{display:block!important;}
+  .hide-mb{display:none!important}
+  .hide-dk{display:block}
+  .hero-content{flex-direction:column-reverse;min-height:auto}
+  .hero-bottom-content .hero-text{padding:40px 20px;text-align:center;max-width:100%;order:2}
+  .hero-bottom-content .hero-image{order:1;height:auto;min-height:auto;padding:40px 0;text-align:center}
+  .hero-title{font-size:36px}
+  .hero-bottom-content .hero-description{max-width:100%}
 }
-
-
-/* ---- Small phones ---- */
 @media (max-width:480px){
-  .hero-title{font-size:24px;}
-  .hero-bottom-content .hero-text{padding:20px 10px;}
+  .hero-title{font-size:28px}
+  .hero-bottom-content .hero-text{padding:30px 15px}
 }
-
-/* ---- Tablet ---- */
 @media (max-width:1024px) and (min-width:769px){
-  .hero-bottom-content .hero-text{
-    padding:20px 40px;
-    max-width:50%;
-  }
-  .hero-title{font-size:42px;}
+  .hero-bottom-content .hero-text{padding:20px 40px;max-width:50%}
+  .hero-title{font-size:42px}
 }
 
 </style>
