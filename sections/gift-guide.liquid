@@ -21,10 +21,8 @@
       {% if section.settings.side_image %}
         <img src="{{ section.settings.side_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image hide-mb">
       {% endif %}
-        <a href="{{ section.settings.button_link }}" 
-         class="shop-button" id="shopBtn">
-         {{ section.settings.button_text_shopnow }}
-         <i class="fas fa-arrow-right"></i> 
+        <a href="{{ section.settings.button_link }}" class="shop-button hide-dk" id="shopBtn">
+          {{ section.settings.button_text_shopnow }} <i class="fas fa-arrow-right"></i>
         </a>
     </div>
   </div>
@@ -111,9 +109,7 @@
 /* mobile */
 @media (max-width:768px){
   .hero-mainimage{display:none}
-  .hero-bottom-content{
-    background:url('{{ section.settings.side_image | image_url: width: 1000 }}') no-repeat bottom/contain;
-  }
+  .hero-bottom-content{background:url({{section.settings.side_image}}) no-repeat bottom/contain}
   .hide-mb{display:none!important}
   .hide-dk{display:block}
   .hero-content{flex-direction:column-reverse;min-height:auto}
@@ -130,7 +126,6 @@
   .hero-bottom-content .hero-text{padding:20px 40px;max-width:50%}
   .hero-title{font-size:42px}
 }
-
 </style>
 
 <script>
