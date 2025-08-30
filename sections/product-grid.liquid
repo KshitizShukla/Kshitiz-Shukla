@@ -30,39 +30,20 @@
 
 <style>
 .container{max-width:1200px;margin:0 auto;padding:0 20px}
-.product-heading{margin:10px 0 16px}
-.product-section{padding:60px 20px;background:#fff} /* small side padding to avoid edge-sticking */
-
-.product-grid{
-  display:grid;
-  gap:20px;
-  grid-template-columns:repeat(3,1fr);
-}
-
+.product-heading{text-align:center;margin:10px 0 20px}
+.product-section{padding:60px 20px;background:#fff}
+.product-grid{display:grid;gap:20px;grid-template-columns:repeat(3,1fr)}
 .product-card{position:relative;overflow:hidden;border-radius:8px;box-shadow:0 4px 6px rgba(0,0,0,.1);transition:transform .3s;cursor:pointer}
 .product-card:hover{transform:translateY(-5px)}
-
-.product-image{width:100%;position:relative;display:flex;align-items:center;justify-content:center;overflow:hidden;background:#f5f5f5}
-.product-image img{width:100%;aspect-ratio:1/1;object-fit:cover;transition:transform .3s} /* desktop/tablet */
-@media (max-width:768px){
-  .product-image img{aspect-ratio:1/2;} /* phone: taller cards */
-}
-.product-card:hover .product-image img{transform:scale(1.05)}
-
+.product-image{width:100%;position:relative;overflow:hidden;background:#f5f5f5}
+.product-image img{width:100%;height:100%;object-fit:cover}
 .product-plus-icon{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:50px;height:50px;background:rgba(255,255,255,.9);border:2px solid #333;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:24px;font-weight:700;color:#333;transition:.3s;z-index:3;pointer-events:none}
 .product-card:hover .product-plus-icon{transform:translate(-50%,-50%) scale(1.1)}
-
-/* fade-in */
 .fade-in{opacity:0;transform:translateY(30px);transition:all .6s}
 .fade-in.visible{opacity:1;transform:translateY(0)}
-
-/* breakpoints: 3 desktop, 2 tablet/phone, 1 very small */
-@media (max-width:1024px){
-  .product-grid{grid-template-columns:repeat(2,1fr)}
-}
-@media (max-width:480px){
-  .product-grid{grid-template-columns:repeat(2,1fr);}
-}
+@media(max-width:1024px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:768px){.product-grid{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:480px){.product-grid{grid-template-columns:repeat(2,1fr)}}
 </style>
 
 <script>
