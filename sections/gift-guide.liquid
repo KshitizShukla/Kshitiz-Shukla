@@ -115,31 +115,31 @@
 
 /* ---- Mobile ---- */
 @media (max-width:768px){
-  /* Hide top big image */
+  /* Hide the desktop-only main image */
   .hero-mainimage { display:none !important; }
 
-  /* Stack text + button + side image */
-  .hero-bottom-content{
+  .hero-bottom-content {
     display:flex;
     flex-direction:column;
     align-items:center;
     justify-content:center;
     text-align:center;
-    padding:30px 20px;
+    padding:20px;
+    position:relative;
   }
 
-  .hero-bottom-content .hero-text{
+  .hero-bottom-content .hero-text {
     order:1;
     padding:0;
     max-width:100%;
   }
 
-  .hero-title{
+  .hero-title {
     font-size:28px;
     margin-bottom:10px;
   }
 
-  .hero-bottom-content .hero-description{
+  .hero-bottom-content .hero-description {
     font-size:14px;
     margin-bottom:15px;
     white-space:nowrap;
@@ -147,26 +147,42 @@
     text-overflow:ellipsis;
   }
 
-  .hide-dk{display:inline-block!important; margin:10px auto;}
-  .hide-mb{display:none!important;}
-
-  /* ✅ Force side image to show */
-  .hero-bottom-content .hero-image{
+  /* ✅ Force image full-width and big */
+  .hero-bottom-content .hero-image {
     order:2;
-    display:block !important;
+    position:relative;
     width:100%;
-    margin-top:15px;
+    margin-top:0;
   }
 
-  .hero-bottom-content .hero-image img{
+  .hero-bottom-content .hero-image img {
     display:block !important;
     width:100%;
-    max-height:200px;
+    max-height:340px;   /* adjust as needed */
     height:auto;
-    object-fit:contain;
-    margin:0 auto;
+    object-fit:cover;
   }
+
+  /* ✅ Button overlay inside image, bottom centered */
+  .hero-bottom-content .hero-image .shop-button {
+    position:absolute;
+    bottom:15px;
+    left:50%;
+    transform:translateX(-50%);
+    z-index:2;
+    background:#000;
+    color:#fff;
+    padding:12px 24px;
+    font-size:14px;
+    font-weight:600;
+    text-transform:uppercase;
+  }
+
+  /* Hide duplicate button for mobile */
+  .hide-mb{display:none!important;}
+  .hide-dk{display:block!important;}
 }
+
 
 /* ---- Small phones ---- */
 @media (max-width:480px){
