@@ -21,8 +21,10 @@
       {% if section.settings.side_image %}
         <img src="{{ section.settings.side_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image hide-mb">
       {% endif %}
-        <a href="{{ section.settings.button_link }}" class="shop-button hide-dk" id="shopBtn">
-          {{ section.settings.button_text_shopnow }} <i class="fas fa-arrow-right"></i>
+        <a href="{{ section.settings.button_link }}" 
+         class="shop-button" id="shopBtn">
+         {{ section.settings.button_text_shopnow }}
+         <i class="fas fa-arrow-right"></i> 
         </a>
     </div>
   </div>
