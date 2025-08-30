@@ -11,7 +11,10 @@
   <div class="hero-content hero-bottom-content">
     <div class="hero-text">
       <h1 class="hero-title">{{ section.settings.title }}</h1>
-      <p class="hero-description">{{ section.settings.description }}</p>
+      <p class="hero-description">
+        <span class="short-text hide-dk">{{ section.settings.shortdescription }}</span>
+        <span class="long-text hide-mb"> {{ section.settings.description }}</span>
+      </p>
       <a href="#products" class="shop-button hide-mb" id="shopBtn">
         {{ section.settings.button_text_shopnow }}
         <i class="fas fa-arrow-right"></i>
@@ -148,6 +151,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     { "type": "image_picker", "id": "main_image", "label": "Main Hero Image" },
     { "type": "text", "id": "title", "label": "Heading", "default": "The Gift Guide" },
     { "type": "textarea", "id": "description", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination. Explore our curated selection and find the perfect gifts to delight your loved ones this holiday season." },
+    { "type": "textarea", "id": "shortdescription", "label": "Description", "default": "Discover Joy: Your Ultimate Holiday Gift Destination." },
     { "type": "text", "id": "button_text_shopnow", "label": "Button Text", "default": "SHOP NOW" },
     { "type": "url", "id": "button_link", "label": "Button Link", "default": "/collections/all" },
     { "type": "image_picker", "id": "side_image", "label": "Hero Side Image" },
