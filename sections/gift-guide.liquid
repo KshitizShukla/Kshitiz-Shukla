@@ -34,7 +34,11 @@
   </div>
 
   <div class="hero-bottom-content">
-    <p class="hero-bottom-text">{{ section.settings.bottom_text }}</p>
+    <p class="hero-bottom-text">{{ section.settings.bottom_text }}
+      
+        <span class="short-text hide-dk">{{ section.settings.shortbottom_text }}</span>
+        <span class="long-text hide-mb"> {{ section.settings.bottom_text }}</span>
+    </p>
   </div>
 </section>
 
@@ -168,6 +172,7 @@ document.addEventListener('DOMContentLoaded',()=>{
     { "type": "text", "id": "button_text_shopnow", "label": "Button Text", "default": "SHOP NOW" },
     { "type": "url", "id": "button_link", "label": "Button Link", "default": "/collections/all" },
     { "type": "image_picker", "id": "side_image", "label": "Hero Side Image" },
+    { "type": "text", "id": "shortbottom_text", "label": "Bottom text strip", "default": "SUSTAINABLE, ETHICALLY MADE ACTIVEWEAR" },
     { "type": "text", "id": "bottom_text", "label": "Bottom text strip", "default": "SUSTAINABLE, ETHICALLY MADE CLOTHES IN SIZES XXS TO 6XL" }
   ],
   "presets": [
