@@ -6,7 +6,7 @@
             <div class="mobile-menu-tagline">{{ section.settings.tagline }}</div>
             <a href="#products" class="mobile-menu-cta" id="mobileCta">
               {{ section.settings.button_text }}
-              <i class="fas fa-arrow-right"></i>
+              <i class="fas fa-arrow-right-long"></i>
             </a>
         </div>
     </div>
@@ -109,6 +109,10 @@
         text-transform: uppercase;
         transition: .3s;
         letter-spacing: 1pt;
+    }
+    i.fas.fa-arrow-right-long {
+        padding-left: 40px;
+        font-size: 20px;
     }
     @media(min-width:769px){
         .mobile-menu-overlay{display:none!important}
