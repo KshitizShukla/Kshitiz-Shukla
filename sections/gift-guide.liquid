@@ -114,73 +114,58 @@
 /* ================= RESPONSIVE ================= */
 
 /* ---- Mobile ---- */
-@media (max-width:768px){
-  /* Hide the desktop-only main image */
-  .hero-mainimage { display:none !important; }
-
+/* MOBILE FIX */
+@media (max-width: 768px) {
   .hero-bottom-content {
-    display:flex;
-    flex-direction:column;
-    align-items:center;
-    justify-content:center;
-    text-align:center;
-    padding:20px;
-    position:relative;
+    position: relative;
+    background: none !important; /* remove background layering */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
   }
 
-  .hero-bottom-content .hero-text {
-    order:1;
-    padding:0;
-    max-width:100%;
-  }
-
-  .hero-title {
-    font-size:28px;
-    margin-bottom:10px;
-  }
-
-  .hero-bottom-content .hero-description {
-    font-size:14px;
-    margin-bottom:15px;
-    white-space:nowrap;
-    overflow:hidden;
-    text-overflow:ellipsis;
-  }
-
-  /* ✅ Force image full-width and big */
+  /* Image should take full width */
   .hero-bottom-content .hero-image {
-    order:2;
-    position:relative;
-    width:100%;
-    margin-top:0;
+    width: 100%;
+    position: relative;
   }
 
   .hero-bottom-content .hero-image img {
-    display:block !important;
-    width:100%;
-    max-height:340px;   /* adjust as needed */
-    height:auto;
-    object-fit:cover;
+    width: 100%;
+    height: auto;
+    display: block;
   }
 
-  /* ✅ Button overlay inside image, bottom centered */
-  .hero-bottom-content .hero-image .shop-button {
-    position:absolute;
-    bottom:15px;
-    left:50%;
-    transform:translateX(-50%);
-    z-index:2;
-    background:#000;
-    color:#fff;
-    padding:12px 24px;
-    font-size:14px;
-    font-weight:600;
-    text-transform:uppercase;
+  /* Button overlays at bottom of image */
+  .hero-bottom-content .shop-button {
+    position: absolute;
+    bottom: 15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: #000;
+    color: #fff;
+    padding: 12px 24px;
+    font-weight: bold;
+    font-size: 14px;
   }
 
-  /* Hide duplicate button for mobile */
-  .hide-mb{display:none!important;}
-  .hide-dk{display:block!important;}
+  /* Text above image */
+  .hero-bottom-content .hero-text {
+    order: -1; /* text above image */
+    padding: 20px;
+  }
+
+  .hero-title {
+    font-size: 28px;
+    margin-bottom: 10px;
+  }
+
+  .hero-description {
+    font-size: 14px;
+    max-width: 90%;
+    margin: 0 auto 20px;
+  }
 }
 
 
