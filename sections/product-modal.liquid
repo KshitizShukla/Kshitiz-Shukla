@@ -149,7 +149,7 @@
   .pg-color-btn.active { background:#000; color:#fff }
 
   /* size */
-  .pg-size-row { position:relative; display:flex }
+  .pg-size-row { position:relative; display:inline-block; width:100%}
   .pg-select {
     width:100%;
     padding:12px 48px 12px 14px;
@@ -157,6 +157,8 @@
     border:1px solid #111;
     border-radius:2px;
     appearance:none;
+    --webkit-appearance:none;
+    -moz-appearance:none;
     background:#fff;
     cursor:pointer
   }
