@@ -16,8 +16,10 @@
         <span class="long-text hide-mb"> {{ section.settings.description }}</span>
       </p>
       <a href="#products" class="shop-button hide-mb" id="shopBtn">
+        <span>
         {{ section.settings.button_text_shopnow }}
         <i class="fas fa-arrow-right-long"></i>
+        </span>
       </a>
     </div>
     <div class="hero-image">
@@ -25,7 +27,8 @@
         <img src="{{ section.settings.side_image | img_url: '2000x' }}" alt="Gift Guide Hero" class="hero-main-image hide-mb">
       {% endif %}
         <a href="{{ section.settings.button_link }}" class="shop-button hide-dk" id="shopBtn">
-          {{ section.settings.button_text_shopnow }} <i class="fas fa-arrow-right-long"></i>
+          <span>{{ section.settings.button_text_shopnow }} <i class="fas fa-arrow-right-long"></i>
+          </span>
         </a>
     </div>
   </div>
