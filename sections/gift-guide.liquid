@@ -96,12 +96,16 @@
   flex:1;
   position:relative;
   max-width:60%;
-  width:100%
+  width:100%;
+  background-image: url({{section.settingns.side_image | img_url:'2000x'}});
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: bottom center;
 }
 .hero-main-image{
   width:100%;
   height:100%;
-  object-fit:contain
+  object-fit:contain;
 }
 .hide-dk{
   display:none!important
@@ -125,6 +129,14 @@
 @media (max-width:1024px) and (min-width:769px){
   .hero-bottom-content .hero-text{padding:20px 40px;max-width:50%}
   .hero-title{font-size:42px}
+}
+@media (max-width: 768px) {
+    .hero-bottom-content {
+        background-image: url({{ section.settings.side_image | img_url:'2000x' }});
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: bottom center;
+    }
 }
 </style>
 
